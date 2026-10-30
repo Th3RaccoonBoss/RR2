@@ -483,7 +483,7 @@ export const layout = ({
 }) => {
   const fullTitle =
     path === "/"
-      ? `${business.name} | Greater Chicago Roofing`
+      ? `Barrington & Greater Chicago Roofing | ${business.name}`
       : `${title} | ${business.name}`;
   const canonical = `${business.siteUrl}${path}`;
   return `<!doctype html>

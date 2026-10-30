@@ -89,10 +89,11 @@ const serviceGuide = (serviceSlug) =>
 
 const home = {
   path: "/",
+  lastModified: "2026-10-30",
   html: layout({
-    title: "Built Above Standard.",
+    title: "Roofing Contractor in Barrington & Greater Chicago",
     description:
-      "Premium roofing and restoration across Greater Chicago, headquartered in Barrington, Illinois. Clear inspections, defined options, and accountable delivery.",
+      "Roof repair, roof replacement, and storm damage restoration in Barrington and Greater Chicago. Contact Raccoon Restoration for a free roof inspection.",
     path: "/",
     pageType: "home",
     faqItems: faqs.slice(0, 3),
@@ -105,9 +106,9 @@ const home = {
         <div class="home-hero__scrim"></div>
         <div class="shell home-hero__inner">
           <div class="home-hero__copy">
-            <p class="eyebrow">Roofing &amp; Restoration · Greater Chicago</p>
+            <p class="eyebrow">Barrington, Illinois · Greater Chicago Roofing</p>
             <h1>Built<span class="hero-mobile-break"><br></span> Above<br><span>Standard.</span></h1>
-            <p class="home-hero__lead">Premium roofing and restoration for homeowners who expect more.</p>
+            <p class="home-hero__lead">Roof repair, roof replacement, and storm damage restoration in Barrington and Greater Chicago.</p>
             <p class="home-hero__support">Clear findings. Straightforward options. One accountable local team from inspection through final walkthrough.</p>
             <div class="button-row">
               ${quoteCta({ position: "hero" })}
@@ -147,7 +148,7 @@ const home = {
         <div class="shell">
           ${sectionHeading({
             eyebrow: "Roofing & Restoration",
-            title: "Protection from the roofline down.",
+            title: "Roofing services in Barrington &amp; Greater Chicago.",
             intro: "Focused services for the parts of your home that face weather first.",
             invert: true
           })}
@@ -266,9 +267,10 @@ const serviceIndex = {
 
 const servicePages = services.map((service) => ({
   path: `/services/${service.slug}/`,
+  lastModified: "2026-10-30",
   html: layout({
     title: `Greater Chicago ${service.name}`,
-    description: `Greater Chicago ${service.name.toLowerCase()} from Raccoon Restoration. Start with documented findings, a defined scope, and a clear next step for the property.`,
+    description: `${service.name} in Barrington and Greater Chicago from Raccoon Restoration. Request a free inspection and a clear, documented scope for your property.`,
     path: `/services/${service.slug}/`,
     pageType: "service",
     service,
@@ -276,7 +278,7 @@ const servicePages = services.map((service) => ({
     body: `
       ${pageHero({
         eyebrow: service.eyebrow,
-        title: service.name,
+        title: `${service.name} in<br>Greater Chicago`,
         breadcrumbLabel: service.name,
         breadcrumbItems: [
           { label: "Services", href: "/services/" },
@@ -378,7 +380,8 @@ const servicePages = services.map((service) => ({
           </div>
           <p class="related-services__location">
             Headquartered in Barrington and serving Greater Chicago.
-            <a class="text-link" href="/service-areas/">Check service availability ${icon("arrow")}</a>
+            <a class="text-link" href="/service-areas/barrington-il/">Roofing in Barrington ${icon("arrow")}</a>
+            <a class="text-link" href="/service-areas/">Greater Chicago service areas ${icon("arrow")}</a>
           </p>
         </div>
       </section>
@@ -968,6 +971,7 @@ const process = {
 
 const serviceAreas = {
   path: "/service-areas/",
+  lastModified: "2026-10-30",
   html: layout({
     title: "Greater Chicago Roofing Service Area",
     description:
@@ -977,7 +981,7 @@ const serviceAreas = {
     body: `
       ${pageHero({
         eyebrow: "Barrington headquarters · Greater Chicago service",
-        title: "Regional reach.<br>One accountable team.",
+        title: "Roofing service areas<br>across Greater Chicago.",
         breadcrumbLabel: "Service Areas",
         intro: "Residential and commercial roofing and restoration across the Greater Chicago area. Share the property city or ZIP code to confirm scheduling for your address.",
         image:
@@ -1025,7 +1029,7 @@ const serviceAreas = {
               <p class="eyebrow">Verified headquarters</p>
               <h2>Barrington, Illinois</h2>
               <p>Barrington is the home base and local trust anchor for a team serving properties throughout Greater Chicago.</p>
-              <a class="text-link" href="/service-areas/barrington-il/">View the Barrington page ${icon("arrow")}</a>
+              <a class="text-link" href="/service-areas/barrington-il/">Roofing services in Barrington, IL ${icon("arrow")}</a>
             </div>
           </div>
           <aside class="address-check">
@@ -1053,16 +1057,17 @@ const serviceAreas = {
 
 const barrington = {
   path: "/service-areas/barrington-il/",
+  lastModified: "2026-10-30",
   html: layout({
-    title: "Roofing & Restoration in Barrington, IL",
+    title: "Roofing Contractor in Barrington, IL",
     description:
-      "Raccoon Restoration provides roofing and restoration guidance from its home base in Barrington, Illinois. Request a free inspection.",
+      "Barrington roof repair, roof replacement, and storm damage restoration from Raccoon Restoration. Request a free inspection from our Barrington-based team.",
     path: "/service-areas/barrington-il/",
     pageType: "location",
     body: `
       ${pageHero({
         eyebrow: "Barrington, Illinois",
-        title: "Roofing decisions with a local point of accountability.",
+        title: "Roofing contractor<br>in Barrington, IL.",
         breadcrumbLabel: "Barrington, IL",
         breadcrumbItems: [
           { label: "Service Areas", href: "/service-areas/" },
