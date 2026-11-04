@@ -1,0 +1,18 @@
+{
+  "purpose": "Exact, unmodified offline snapshots. Do not edit copies; refresh deliberately from the named source and update hashes.",
+  "validatorSource": "acl-postgres-validation/real-neon-validation.mjs",
+  "integrationSource": "acl-routing-integration",
+  "productionShaUnchanged": "d82df62d43ed2f30f93a150ca96ec51cb1becdb8",
+  "sha256": {
+    "vendor/acl-postgres-validation/real-neon-validation.mjs": "053db328fd1909d2361838db53d2896f05332838aa7026321e9ef2996aac52c4",
+    "vendor/acl-routing-integration/migrations/001-acl-routing-journal.sql": "826cea5df952b9d9e565725ef7c28f82cd37953666538d2a9d35f791782a75ba",
+    "vendor/acl-routing-integration/migrations/002-acl-website-receipts.sql": "e914665e28f447e0874688fd3d7edb127313c365d4bcf393287b6af1d1635300",
+    "vendor/acl-routing-integration/migrations/003-acl-shared-api-quota.sql": "c6884e21a01857b1144c25d51c58389f518b11f07862673f3c4cee931cdea04b",
+    "vendor/acl-routing-integration/migrations/004-acl-website-submission-sessions.sql": "8ed08a9b09f6e3be71b976a49297280775c18801b3f041ee84f6e6b24858c436",
+    "vendor/acl-routing-integration/src/postgres-durability.mjs": "ebb8f4d3c8b43ce5dc8c7917f244c76b4a6ea383765817e269d5847e1d10e001",
+    "vendor/acl-routing-integration/src/postgres-routing-store.mjs": "6e23e03edb33219f00eb84c1ddf31878149c4ecb4e055a3f078142b1a4b9ab35",
+    "vendor/acl-routing-integration/src/postgres-website-intake-store.mjs": "4b57915fc3d6666d8558ef35fa815dca3dec81f7bd5c93c1c9cda773aff4ad07",
+    "vendor/acl-routing-integration/src/website-intake-bridge.mjs": "902cfe216fca28834b8c5f0cbfb3a4076265d4e819a01817720e01cd8ab9fd2d",
+    "vendor/acl-routing-integration/src/website-submission-sessions.mjs": "61c218a091fb99c0265b91c186d7138a26ec25de472ce78bb926541f91c5b2f3"
+  }
+}

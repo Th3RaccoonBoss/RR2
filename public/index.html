@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>ACL Runtime | Isolated Preview Diagnostic</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Raccoon Restoration · Engineering Preview</div>
+    <h1>Check the runtime.<br>Keep the live site untouched.</h1>
+    <p class="lead">A protected, isolated diagnostic candidate. Opening this page does not contact Neon or AccuLynx, run migrations, or activate routing.</p>
+    <div class="badge">Disabled until separately approved</div>
+    <section aria-labelledby="status-heading">
+      <h2 id="status-heading">1. Inspect the gate</h2>
+      <p>This button reads this Preview’s configuration flags only. It does not connect to a database, reveal credentials, or verify Vercel protection.</p>
+      <button id="status-button" type="button">Check Preview gate</button>
+      <p id="gate-status" role="status">No checks have run.</p>
+    </section>
+    <section aria-labelledby="neon-heading">
+      <h2 id="neon-heading">2. Run one approved synthetic check</h2>
+      <p>Use only the separately approved one-run diagnostic scope. An enabled gate alone is not permission to repeat a test.</p>
+      <ul>
+        <li>Creates a new random validation schema, applies four migrations, and retains synthetic records.</li>
+        <li>Checks strict TLS, independent sessions, advisory locks, rollback and replay handling.</li>
+        <li>Does not modify existing tables, call ACL, activate an intake epoch, or fall back to production.</li>
+      </ul>
+      <p class="warning">A timeout or interruption may leave a schema or committed synthetic data. Inspect the outcome before any repeat. This is not a provider failover test.</p>
+      <label class="checkbox"><input id="approved" type="checkbox" autocomplete="off"> I have separate approval for this one invocation, and verified restricted Vercel Preview protection.</label>
+      <label for="confirmation">Type <strong>CREATE ONE ISOLATED SYNTHETIC SCHEMA</strong></label>
+      <input id="confirmation" type="text" autocomplete="off" spellcheck="false" placeholder="Exact confirmation phrase">
+      <button id="run-button" class="danger" type="button" disabled>Run synthetic Neon validation</button>
+      <p class="small">Maximum execution: 150 seconds. No automatic retries. Every authenticated viewer of this deployment could invoke the API during an enabled grant window, so access must be restricted operationally.</p>
+    </section>
+    <section aria-labelledby="inspection-heading">
+      <h2 id="inspection-heading">3. Inspect an uncertain result, read-only</h2>
+      <p>A separate read-only grant permits this explicit action after the mutation grant expires. It never re-enables validation or changes data.</p>
+      <p>Returns at most 10 matching validation schema names and bounded row counts for the 10 fixed diagnostic tables. No public tables, customer fields, arbitrary SQL, or cleanup.</p>
+      <label for="inspection-run-id">Optional exact run ID from the validation result</label>
+      <input id="inspection-run-id" type="text" autocomplete="off" spellcheck="false" placeholder="Leave blank to list up to 10 matching schemas">
+      <button id="inspect-button" type="button" disabled>Inspect validation schemas read-only</button>
+      <p class="small">Maximum inspection: 45 seconds. Metadata is not proof the original validation passed. Listing order is lexical, not newest-first.</p>
+    </section>
+    <section aria-labelledby="acl-heading">
+      <h2 id="acl-heading">ACL discovery remains offline</h2>
+      <p>This candidate contains a tested reference-shape summarizer only. It has no live ACL route and never reads the ACL API key. No contact, job, representative, appointment or customer data is requested.</p>
+    </section>
+    <section aria-labelledby="result-heading">
+      <h2 id="result-heading">Sanitized result</h2>
+      <pre id="result" aria-live="polite">No execution requested.</pre>
+    </section>
+    <footer>Preview only · No production fallback · No customer form · No automatic work</footer>
+  </main>
+</body>
+</html>

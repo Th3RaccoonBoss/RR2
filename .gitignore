@@ -1,9 +1,7 @@
-dist/
 node_modules/
-.DS_Store
+dist/
+.vercel/
 .env
+.env.*
+!.env.example
 *.log
-screenshots/
-tmp/
-public/assets/images/*-source.png
-.claude/

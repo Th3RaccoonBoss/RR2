@@ -1,90 +1,52 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
   "framework": null,
+  "installCommand": "npm ci --ignore-scripts --no-audit --no-fund",
+  "buildCommand": "npm run check",
+  "outputDirectory": "dist",
   "functions": {
-    "api/quote.mjs": {
-      "maxDuration": 30
+    "api/diagnostic.mjs": {
+      "maxDuration": 180,
+      "includeFiles": [
+        "vendor/**",
+        "lib/inspection-worker.mjs",
+        "lib/inspection-core.mjs",
+        "lib/neon-readonly-options.mjs",
+        "node_modules/**"
+      ]
     }
   },
-  "cleanUrls": false,
-  "trailingSlash": true,
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "raccoonrestoration.com"
-        }
-      ],
-      "destination": "https://www.raccoonrestoration.com/:path*",
-      "statusCode": 301
-    },
-    {
-      "source": "/projects/",
-      "destination": "/services/",
-      "statusCode": 302
-    },
-    {
-      "source": "/projects/tudor-exterior-transformation/",
-      "destination": "/services/gutters-exteriors/",
-      "statusCode": 302
-    },
-    {
-      "source": "/projects/commercial-flat-roof/",
-      "destination": "/services/",
-      "statusCode": 302
-    },
-    {
-      "source": "/contact-us-3/",
-      "destination": "/contact/",
-      "statusCode": 301
-    },
-    {
-      "source": "/contact-us/",
-      "destination": "/contact/",
-      "statusCode": 301
-    },
-    {
-      "source": "/services/roofing/",
-      "destination": "/services/",
-      "statusCode": 301
-    }
-  ],
   "headers": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
         {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
           "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
+          "value": "no-referrer"
         },
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=()"
         },
         {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/assets/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, must-revalidate"
+          "key": "Content-Security-Policy",
+          "value": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
         }
       ]
     }

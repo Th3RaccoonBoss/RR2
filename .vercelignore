@@ -1,0 +1,8 @@
+.git
+.env*
+.vercel
+test-results.txt
+README.md
+APPROVALS.md
+MANIFEST.sha256
+*.tgz
