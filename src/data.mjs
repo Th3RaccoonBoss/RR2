@@ -21,7 +21,7 @@ export const navigation = [
   { label: "Why Us", href: "/about/" },
   { label: "Our Process", href: "/process/" },
   { label: "Reviews", href: "/reviews/" },
-  { label: "Resources", href: "/resources/" }
+  { label: "Blog & Resources", href: "/resources/" }
 ];
 
 export const trustSignals = [

@@ -184,7 +184,7 @@ const footer = () => `
         <a href="/about/">About</a>
         <a href="/process/">Our Process</a>
         <a href="/reviews/">Reviews</a>
-        <a href="/resources/">Roofing Resources</a>
+        <a href="/resources/">Blog &amp; Resources</a>
         <a href="/service-areas/">Service Areas</a>
         <a href="/warranty/">Warranty</a>
         <a href="/faq/">FAQ</a>
