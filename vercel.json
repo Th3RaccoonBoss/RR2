@@ -7,13 +7,7 @@
   "functions": {
     "api/diagnostic.mjs": {
       "maxDuration": 180,
-      "includeFiles": [
-        "vendor/**",
-        "lib/inspection-worker.mjs",
-        "lib/inspection-core.mjs",
-        "lib/neon-readonly-options.mjs",
-        "node_modules/**"
-      ]
+      "includeFiles": "{vendor/**,lib/inspection-worker.mjs,lib/inspection-core.mjs,lib/neon-readonly-options.mjs,node_modules/**}"
     }
   },
   "headers": [

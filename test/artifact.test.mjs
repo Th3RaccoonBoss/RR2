@@ -4,6 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import vm from 'node:vm';
+import {matchesGlob} from 'node:path';
 import { summarizeReferenceShape } from '../lib/shape-summary.mjs';
 const root=new URL('../',import.meta.url);
 test('Vendored validator, migrations and dependency closure match source manifest',async()=>{
@@ -24,7 +25,12 @@ test('All vendored relative imports stay inside the exact five-module closure',a
   }
   const config=JSON.parse(await readFile(new URL('vercel.json',root),'utf8'));
   assert.deepEqual(Object.keys(config.functions),['api/diagnostic.mjs']);
-  assert.deepEqual(config.functions['api/diagnostic.mjs'].includeFiles,['vendor/**','lib/inspection-worker.mjs','lib/inspection-core.mjs','lib/neon-readonly-options.mjs','node_modules/**']);
+  const includes=config.functions['api/diagnostic.mjs'].includeFiles;
+  assert.equal(typeof includes,'string','Vercel includeFiles schema requires a single glob string');
+  assert.equal(includes,'{vendor/**,lib/inspection-worker.mjs,lib/inspection-core.mjs,lib/neon-readonly-options.mjs,node_modules/**}');
+  const manifest=JSON.parse(await readFile(new URL('vendor-manifest.json',root),'utf8'));
+  for(const path of [...Object.keys(manifest.sha256),'lib/inspection-worker.mjs','lib/inspection-core.mjs','lib/neon-readonly-options.mjs','node_modules/pg/package.json','node_modules/pg/lib/client.js','node_modules/pg-pool/index.js'])assert.equal(matchesGlob(path,includes),true,path);
+  for(const path of ['.env','.env.local','README.md','api/quote.mjs'])assert.equal(matchesGlob(path,includes),false,path);
   assert.ok(!(await readFile(new URL('.vercelignore',root),'utf8')).split('\n').includes('test'));
 });
 test('Validator --plan is nonexecuting, with no credentials or dependencies required',()=>{

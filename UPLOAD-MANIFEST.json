@@ -66,7 +66,7 @@
     "public/style.css": "162f10b035851c6141087164fe47963981f0abbb90c97b139f92d77b6244a47e",
     "scripts/build.mjs": "ac8b5740de914ae6d362cbf6b12e9b614fc7c75623fc968844e0d279aa500004",
     "scripts/serve.mjs": "61ad96aae9ed2bc344bbf1ee5498c37c8329967632025d872059cb445af91b35",
-    "test/artifact.test.mjs": "4266164aae94e5fab00aed0cbd0feb96014d5105681fdab0d8e5bf686bd44cd5",
+    "test/artifact.test.mjs": "a8a486abfd44f57ce0cf353f1119b524eb7a074162c7cc5173790c0355cee7b7",
     "test/gates.test.mjs": "b24181cacfd3bbbc839762a478a54e84c924a0889767a6b528f995b7ce0c2b7d",
     "test/inspection.test.mjs": "af16afcb7ec554b7b40bb3dd3a34ca1068b65a38f5e1acf003b78b9fa4eac32f",
     "test/runner.test.mjs": "f83214af013628e87b7daf9ccfc557187e8065802a4dd004ccb515508c8f497e",
@@ -81,7 +81,7 @@
     "vendor/acl-routing-integration/src/website-intake-bridge.mjs": "902cfe216fca28834b8c5f0cbfb3a4076265d4e819a01817720e01cd8ab9fd2d",
     "vendor/acl-routing-integration/src/website-submission-sessions.mjs": "61c218a091fb99c0265b91c186d7138a26ec25de472ce78bb926541f91c5b2f3",
     "vendor-manifest.json": "f6971fcf6b660b7e309769e9ef25db713580a7dd8240edbce57c0bfe53ad4817",
-    "vercel.json": "34ec9752fdd2f5b07189094cc27c4be97493d4c181e2a02d0e855e200b5bbfa7"
+    "vercel.json": "dc3512c801adaf0be7101cff1484bb58376e0bb9bc2f7fa32db778494237b6f3"
   },
   "manifestHash": "Self hash is provided separately by the source archive hash.",
   "excludedGeneratedPaths": [
