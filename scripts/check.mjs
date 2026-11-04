@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { access, readFile, readdir, stat } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,6 +31,15 @@ async function walk(directory) {
 
 await walk(dist);
 
+// Versioned references must match the bytes actually emitted, not a release label.
+const expectedVersionedAssets = await Promise.all([
+  ["styles.css", "href"], ["main.js", "src"]
+].map(async ([name, attribute]) => {
+  const bytes = await readFile(join(dist, "assets", name));
+  const version = createHash("sha256").update(bytes).digest("hex").slice(0, 16);
+  return { name, attribute, url: `/assets/${name}?v=${version}` };
+}));
+
 function targetFor(href) {
   const clean = href.split("#")[0].split("?")[0];
   if (!clean || clean.startsWith("http") || clean.startsWith("mailto:") || clean.startsWith("tel:")) {
@@ -44,6 +54,11 @@ function targetFor(href) {
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
   const label = relative(dist, file);
+  for (const { name, attribute, url } of expectedVersionedAssets) {
+    if (!html.includes(`${attribute}="${url}"`) || html.includes(`${attribute}="/assets/${name}"`)) {
+      failures.push(`${label}: missing or stale content-versioned ${name} reference`);
+    }
+  }
   const route =
     label === "index.html"
       ? "/"

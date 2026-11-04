@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -121,11 +122,26 @@ function prioritizeHomeHero(html) {
   });
 }
 
+// Version URLs by the exact emitted bytes so returning visitors cannot mix
+// new HTML with a cached stylesheet or application module from an older release.
+// Keep the existing asset paths and hosting/security cache policies intact.
+const stylesheet = minifyCss(
+  [
+    await readFile(join(root, "src", "styles.css"), "utf8"),
+    await readFile(join(root, "src", "compact.css"), "utf8")
+  ].join("\n")
+);
+const mainScript = await readFile(join(root, "src", "main.js"), "utf8");
+const assetVersion = (content) => createHash("sha256").update(content).digest("hex").slice(0, 16);
+const versionAssetReferences = (html) => html
+  .replaceAll('href="/assets/styles.css"', `href="/assets/styles.css?v=${assetVersion(stylesheet)}"`)
+  .replaceAll('src="/assets/main.js"', `src="/assets/main.js?v=${assetVersion(mainScript)}"`);
+
 const outputPages = pages.map((page) => ({
   ...page,
-  html: transformImageMarkup(
+  html: versionAssetReferences(transformImageMarkup(
     page.path === "/" ? prioritizeHomeHero(page.html) : page.html
-  )
+  ))
 }));
 
 await rm(dist, { recursive: true, force: true });
@@ -147,9 +163,7 @@ await mkdir(join(dist, "assets", "images"), { recursive: true });
 await mkdir(join(dist, "assets", "projects"), { recursive: true });
 await mkdir(join(dist, "assets", "editorial-v2"), { recursive: true });
 await mkdir(join(dist, "assets", "vendor"), { recursive: true });
-// The emitted stylesheet is the base stylesheet plus the case-study module
-// (src/case-studies.css), concatenated in order so cs-* rules can rely on the
-// base tokens and utility classes without duplicating them.
+// The base stylesheet and compact module share tokens and utility classes.
 // Conservative minification: comments and whitespace only — no rule
 // rewriting — so the emitted sheet is byte-lean but semantically identical.
 function minifyCss(css) {
@@ -161,17 +175,8 @@ function minifyCss(css) {
     .trim();
 }
 
-await writeFile(
-  join(dist, "assets", "styles.css"),
-  minifyCss(
-    [
-      await readFile(join(root, "src", "styles.css"), "utf8"),
-      await readFile(join(root, "src", "compact.css"), "utf8")
-    ].join("\n")
-  ),
-  "utf8"
-);
-await cp(join(root, "src", "main.js"), join(dist, "assets", "main.js"));
+await writeFile(join(dist, "assets", "styles.css"), stylesheet, "utf8");
+await writeFile(join(dist, "assets", "main.js"), mainScript, "utf8");
 await cp(
   join(
     root,
