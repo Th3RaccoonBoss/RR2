@@ -1,7 +1,7 @@
 export const business = {
   name: "Raccoon Restoration",
   descriptor: "Roofing & Restoration",
-  slogan: "Built Above Standard.",
+  slogan: "We don’t follow industry standards. We set them.",
   supportingStatement:
     "Premium roofing and restoration for homeowners who expect more.",
   phoneDisplay: "(224) 500-6825",
@@ -10,8 +10,8 @@ export const business = {
   city: "Barrington",
   state: "IL",
   market: "Greater Chicago",
-  serviceAreaName: "Greater Chicago area",
-  license: "Illinois Roofing License #104.020040",
+  serviceAreaName: "Greater Chicago area, with storm-response inquiries across Illinois",
+  license: "Illinois Unlimited Roofing License #104.020040",
   siteUrl: process.env.SITE_URL || "https://www.raccoonrestoration.com",
   formEndpoint: process.env.FORM_ENDPOINT || ""
 };
@@ -20,7 +20,6 @@ export const navigation = [
   { label: "Services", href: "/services/" },
   { label: "Why Us", href: "/about/" },
   { label: "Our Process", href: "/process/" },
-  { label: "Projects", href: "/projects/" },
   { label: "Reviews", href: "/reviews/" },
   { label: "Resources", href: "/resources/" }
 ];
@@ -155,7 +154,7 @@ export const services = [
       "Storm-related exterior inspection",
       "Photo documentation of observed conditions",
       "A clearly defined repair or restoration scope",
-      "Contractor-side documentation and repair-estimate support"
+      "Damage documentation and repair-estimate support"
     ],
     faq: [
       {
@@ -163,8 +162,8 @@ export const services = [
         a: "No. Wet surfaces, loose materials, and hidden damage make roof access dangerous. A ground-level visual check and professional inspection are safer."
       },
       {
-        q: "Does Raccoon Restoration decide what insurance covers?",
-        a: "No. Coverage decisions belong to the insurance carrier. From the contractor side, we can inspect and document visible damage, prepare a repair scope and estimate, and confer with the insurance company’s representative about the property damage and repair options. Raccoon Restoration is not a public adjuster and does not interpret coverage, file a claim for the customer, or negotiate the settlement."
+        q: "How do you help after storm damage?",
+        a: "We inspect and document visible damage, prepare a repair scope and estimate, and can discuss the property damage and repair options with your insurer’s representative."
       }
     ]
   },
@@ -176,19 +175,19 @@ export const services = [
       "Gutter and exterior work coordinated as part of the home’s drainage and weather-protection system.",
     short: "Protect the roofline and drainage path.",
     image:
-      "/assets/editorial-v2/gutters-exteriors-installation-service-card-v2-1280.jpg",
+      "/assets/editorial-v2/warranty-finished-roof-web-1280.jpg",
     cardImage:
-      "/assets/editorial-v2/gutters-exteriors-installation-service-card-v2-1280.jpg",
+      "/assets/editorial-v2/warranty-finished-roof-web-1280.jpg",
     cardSrcset:
-      "/assets/editorial-v2/gutters-exteriors-installation-service-card-v2-640.jpg 640w, /assets/editorial-v2/gutters-exteriors-installation-service-card-v2-1280.jpg 1280w",
+      "/assets/editorial-v2/warranty-finished-roof-web-1280.jpg 1280w",
     cardSizes:
       "(max-width: 800px) calc(100vw - 32px), (max-width: 1100px) 50vw, 25vw",
     cardImageAlt:
-      "Exterior professional checking the alignment of a matte-charcoal gutter on a stone residence",
+      "Aerial view of a gray architectural-shingle roof with white gutters and intersecting rooflines",
     cardImageWidth: 1280,
     cardImageHeight: 720,
     imageAlt:
-      "Exterior professional checking the alignment of a matte-charcoal gutter on a stone residence",
+      "Aerial view of a gray architectural-shingle roof with white gutters and intersecting rooflines",
     imageWidth: 1280,
     imageHeight: 720,
     mediaCaption: "Gutter installation · service illustration",
@@ -275,11 +274,11 @@ export const faqs = [
   },
   {
     q: "Do you serve my town?",
-    a: "Raccoon Restoration is headquartered in Barrington and serves the Greater Chicago area. Send the property city or ZIP code so the team can confirm current scheduling and availability for your address."
+    a: "We serve Greater Chicago from Barrington, including Darien, Tinley Park and Orland Park, and welcome storm-damage inquiries statewide. Share your city or ZIP code to confirm availability."
   },
   {
-    q: "Do you handle insurance claims?",
-    a: "Yes—from the contractor side. We document visible damage, prepare the repair estimate, and can discuss the damage and repair options with the insurer’s representative. We do not act as a public adjuster, file claims, interpret coverage, or negotiate settlements."
+    q: "How do you help with storm-damage documentation?",
+    a: "We document visible damage, prepare the repair estimate, and can discuss the damage and repair options with your insurer’s representative."
   },
   {
     q: "Are financing and warranty options available?",
@@ -287,7 +286,7 @@ export const faqs = [
   },
   {
     q: "Which services do you provide?",
-    a: "Our capabilities include roofing, siding, gutters, interior restoration, paint and wallcoverings, windows and doors, project estimating, design guidance, water and flood-damage assessments, and contractor-side storm documentation. Availability is confirmed for each property and scope."
+    a: "Our capabilities include roofing, siding, gutters, interior restoration, paint and wallcoverings, windows and doors, project estimating, design guidance, water and flood-damage assessments, and storm-damage documentation. Availability is confirmed for each property and scope."
   }
 ];
 
@@ -308,7 +307,7 @@ export const proof = {
       id: "il-roofing-license",
       verified: true,
       icon: "shield",
-      title: "Illinois Roofing License #104.020040"
+      title: "Illinois Unlimited Roofing License #104.020040"
     }
   ],
   quotes: [
@@ -413,9 +412,15 @@ export const claimRegistry = [
     source: "Existing public website"
   },
   {
-    claim: "Illinois Roofing License #104.020040",
+    claim: "Illinois Unlimited Roofing License #104.020040",
     status: "verified",
-    source: "Existing public website, BBB, and GAF profile"
+    source: "https://data.illinois.gov/Business-and-Workforce/Professional-Licensing/pzzh-kp68/data_preview",
+    verifiedOn: "2026-11-04",
+    sourceUpdatedOn: "2026-11-02",
+    licenseStatus: "ACTIVE",
+    classification: "UNLIMITED",
+    registeredBusiness: "ALPHA RESTORATION INC DBA RACCOON RESTORATION",
+    expiration: "2027-12-31"
   },
   {
     claim: "GAF Certified contractor",
@@ -424,8 +429,8 @@ export const claimRegistry = [
   },
   {
     claim: "Insured",
-    status: "unverified",
-    source: "Certificate of insurance required"
+    status: "client_confirmed",
+    source: "Owner direction, November 4, 2026. Coverage not independently verified."
   },
   {
     claim: "Financing",
@@ -438,9 +443,12 @@ export const claimRegistry = [
     source: "Written warranty terms required"
   },
   {
-    claim: "Review score and count",
-    status: "unverified_for_marketing",
-    source: "Approved review-platform snapshot required"
+    claim: "Google rating and review count",
+    status: "verified",
+    source: "https://www.google.com/maps/place/Raccoon+Restoration/@41.6325274,-88.6188987,9z/data=!3m1!4b1!4m6!3m5!1s0x8b64af637c69da7b:0xd80a48f725dc1060!8m2!3d41.6344115!4d-87.959509!16s%2Fg%2F11x785qcl4?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+    rating: 5.0,
+    reviewCount: 29,
+    verifiedOn: "2026-11-04"
   },
   {
     claim: "Free inspections",
@@ -453,9 +461,9 @@ export const claimRegistry = [
     source: "Client correction and approval, August 4, 2026"
   },
   {
-    claim: "Contractor-side storm documentation and repair estimating",
+    claim: "Storm-damage documentation and repair estimating",
     status: "client_confirmed",
-    source: "Client correction, August 4, 2026; Raccoon Restoration is not a public adjuster"
+    source: "Client correction, August 4, 2026"
   },
   {
     claim: "Quality craftsmanship",
@@ -466,5 +474,16 @@ export const claimRegistry = [
     claim: "Fast, reliable service",
     status: "client_approved_pending_operational_review",
     source: "Client direction, July 28, 2026"
+  },
+  {
+    claim: "BBB A+ rating and accreditation",
+    status: "verified",
+    source: "https://www.bbb.org/us/il/barrington/profile/roofing-consultants/raccoon-restoration-0654-90025835#rating",
+    verifiedOn: "2026-11-04"
+  },
+  {
+    claim: "Bonded",
+    status: "client_confirmed",
+    source: "Owner direction, November 4, 2026. Coverage not independently verified."
   }
 ];

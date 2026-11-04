@@ -410,14 +410,15 @@ function buildContactNote(lead) {
 
 export function buildJobNotes(lead) {
   const lines = [
-    "WEBSITE QUOTE REQUEST",
+    "WEBSITE LEAD: Raccoon Restoration website form",
+    "SALES ACTION: Call the lead immediately to schedule an inspection and prepare an estimate.",
+    `Source page: ${lead.sourcePage}`,
     `Submission: ${lead.submissionId}`,
     `Service: ${serviceLabels[lead.service]}`,
     `Property: ${propertyLabels[lead.propertyType]}`,
     `Timing: ${timingLabels[lead.projectTiming]}`,
     `Insurance/claim: ${claimLabels[lead.claimStage]}`,
     `Preferred response: ${lead.contactPreference || "No preference"}`,
-    `Source page: ${lead.sourcePage}`,
     `Submitted: ${lead.submittedAt}`,
     `Consent: Yes (${lead.consent.acceptedAt})`
   ];

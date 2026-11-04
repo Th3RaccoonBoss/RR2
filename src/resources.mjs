@@ -1,4 +1,7 @@
+import { hailArticle } from "./hail-article.mjs";
+
 export const resourceArticles = [
+  hailArticle,
   {
     slug: "roof-replacement-process-what-to-expect",
     eyebrow: "Roofing guide",
@@ -115,12 +118,12 @@ export const resourceArticles = [
     seoTitle: "Choose a Greater Chicago Roofer",
     shortTitle: "Choose the right roofing contractor",
     description:
-      "A practical Greater Chicago homeowner checklist for comparing roofing contractors, licenses, inspection findings, scopes, and claim-support roles.",
+      "A practical Greater Chicago homeowner checklist for comparing roofing contractors, licenses, inspection findings, written scopes, and completed work.",
     dek:
       "Use evidence, written scope, and verifiable credentials to compare roofers—not pressure, vague allowances, or price alone.",
     readTime: "6 min read",
     datePublished: "2026-07-30",
-    dateModified: "2026-08-04",
+    dateModified: "2026-11-04",
     sourceReviewed: "2026-08-04",
     sections: [
       {
@@ -155,23 +158,6 @@ export const resourceArticles = [
           "Flashing, ventilation, and water-management details",
           "Cleanup, magnetic sweep, final walkthrough, and documentation",
           "Written warranty terms and important exclusions"
-        ]
-      },
-      {
-        heading: "Understand the insurance-claim roles",
-        paragraphs: [
-          "With the homeowner’s permission, a contractor can inspect damage, prepare a construction estimate, submit that estimate to the insurance company, confer with the insurer’s representative about property damage, and discuss repair or replacement options. The contractor cannot represent the homeowner on the insurance claim, file the claim for the homeowner, or negotiate the settlement.",
-          "A licensed public adjuster, when separately retained by the homeowner, can represent the policyholder in preparing, presenting, and negotiating a property claim. Ask who is performing each role and verify any public-adjuster license before signing a separate agreement."
-        ],
-        links: [
-          {
-            href: "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2359&ChapterID=66",
-            label: "Illinois General Assembly: contractor insurance-claim limits"
-          },
-          {
-            href: "https://idoi.illinois.gov/consumers/consumerinsurance/homeownerrenter/homeowners-and-renters-public-adjusters.html",
-            label: "Illinois Department of Insurance: Public Adjusters"
-          }
         ]
       },
       {
@@ -247,12 +233,12 @@ export const resourceArticles = [
     seoTitle: "Illinois Storm-Damage Roof Assessment",
     shortTitle: "What to do after roof storm damage",
     description:
-      "A clear Illinois storm-damage roof assessment guide covering immediate safety, photo documentation, inspections, contractor roles, and claim support.",
+      "A clear Illinois storm-damage roof assessment guide covering immediate safety, photo documentation, inspections, and repair planning.",
     dek:
       "After wind or hail, protect people and the interior first. Then build a factual record before deciding what work is warranted.",
     readTime: "6 min read",
     datePublished: "2026-07-30",
-    dateModified: "2026-08-04",
+    dateModified: "2026-11-04",
     sourceReviewed: "2026-08-04",
     sections: [
       {
@@ -283,23 +269,6 @@ export const resourceArticles = [
           {
             href: "https://idoi.illinois.gov/consumers/disasters.html",
             label: "Illinois Department of Insurance: Disaster Guidance"
-          }
-        ]
-      },
-      {
-        heading: "Know who represents whom",
-        paragraphs: [
-          "The insurance carrier decides coverage under the policy. With the homeowner’s permission, a roofing contractor may inspect the property, prepare a repair estimate, confer with the insurer’s representative about the damage, and discuss repair or replacement options. The contractor may not represent the homeowner on the claim, file the claim for the homeowner, or negotiate the settlement.",
-          "A licensed public adjuster, under a separate agreement with the homeowner, can represent the policyholder on the claim. No contractor or public adjuster can guarantee coverage or a claim outcome. Ask for every role, fee, and responsibility in writing."
-        ],
-        links: [
-          {
-            href: "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2359&ChapterID=66",
-            label: "Illinois General Assembly: contractor insurance-claim limits"
-          },
-          {
-            href: "https://idoi.illinois.gov/consumers/consumerinsurance/homeownerrenter/homeowners-and-renters-public-adjusters.html",
-            label: "Illinois Department of Insurance: Public Adjusters"
           }
         ]
       },

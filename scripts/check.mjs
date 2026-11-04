@@ -235,6 +235,16 @@ for (const record of routeRecords) {
 // supersedes the JPEG/PNG it replaces.
 const homepageImageBudgetBytes = 900 * 1024;
 const homeHtml = await readFile(join(dist, "index.html"), "utf8");
+// The compact homepage must retain the production click-event contract.
+const homeServiceLinks = [...homeHtml.matchAll(/<a\b[^>]*class="roof-service-row"[^>]*>/g)];
+if (homeServiceLinks.length !== 4 || homeServiceLinks.some(([tag]) =>
+  !tag.includes('data-event="service_card_click"') || !tag.includes('data-service="')
+)) failures.push("index.html: compact service links must retain service click tracking");
+for (const [scheme, event] of [["tel:", "phone_click"], ["mailto:", "email_click"]]) {
+  const tag = homeHtml.match(new RegExp(`<a[^>]*href="${scheme}[^>]*data-position="home_contact"[^>]*>`))?.[0];
+  if (!tag?.includes(`data-event="${event}"`)) failures.push(`index.html: homepage ${scheme} link must retain tracking`);
+}
+
 const imageUrlPattern = /^\/assets\/\S+\.(?:avif|gif|jpe?g|png|webp)$/i;
 const urlsIn = (markup) => {
   const found = new Set();

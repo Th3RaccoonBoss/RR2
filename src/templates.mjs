@@ -70,7 +70,7 @@ export const button = ({
 export const quoteHref = "/contact/?intent=quote#inspection-form";
 
 export const quoteCta = ({
-  label = "Get My Instant Quote",
+  label = "Request a Quote",
   variant = "primary",
   position = "content"
 } = {}) =>
@@ -112,11 +112,11 @@ const serviceDropdown = () => `
     </div>
   </details>`;
 
-const header = () => `
+const header = (path) => `
   <div class="utility">
     <div class="shell utility__inner">
-      <span>Serving Greater Chicago from Barrington, Illinois</span>
-      <span class="utility__license">${escapeHtml(business.license)}</span>
+      <span class="utility__assurance">Licensed, Bonded &amp; Insured</span>
+      <span class="utility__license">Illinois Unlimited Roofing License <strong>#104.020040</strong></span>
       <a href="tel:${business.phoneHref}" data-event="phone_click" data-position="utility">${icon("phone")}${business.phoneDisplay}</a>
     </div>
   </div>
@@ -127,7 +127,7 @@ const header = () => `
         ${serviceDropdown()}
         ${navigation
           .filter((item) => item.label !== "Services")
-          .map((item) => `<a href="${item.href}">${escapeHtml(item.label)}</a>`)
+          .map((item) => `<a href="${path === "/" && item.label === "Why Us" ? "#credentials" : path === "/" && item.label === "Our Process" ? "#process" : item.href}">${escapeHtml(path === "/" && item.label === "Why Us" ? "Why Raccoon" : item.label)}</a>`)
           .join("")}
       </nav>
       <div class="site-header__actions">
@@ -141,7 +141,7 @@ const header = () => `
       <div class="shell mobile-menu__inner">
         <p class="eyebrow">Roofing &amp; Restoration</p>
         <a class="mobile-menu__phone" href="tel:${business.phoneHref}" data-event="phone_click" data-position="mobile_menu">${icon("phone")}<span>Call ${business.phoneDisplay}</span>${icon("arrow")}</a>
-        <a class="mobile-menu__quote" href="${quoteHref}" data-event="quote_cta_click" data-position="mobile_menu" data-intent="quote"><span>Get My Instant Quote</span>${icon("arrow")}</a>
+        <a class="mobile-menu__quote" href="${quoteHref}" data-event="quote_cta_click" data-position="mobile_menu" data-intent="quote"><span>Request a Quote</span>${icon("arrow")}</a>
         <details class="mobile-menu__group" data-mobile-service-group>
           <summary><span>Services</span>${icon("arrow")}</summary>
           <div>
@@ -167,7 +167,7 @@ const footer = () => `
     <div class="shell footer-grid">
       <div class="footer-brand">
         ${logo({ footer: true })}
-        <p>Premium roofing and restoration across Greater Chicago, headquartered in Barrington, Illinois.</p>
+        <p>Roofing and restoration across Greater Chicago from our Barrington, Illinois office. Storm-damage inquiries welcome from across Illinois.</p>
         <p class="footer-license">${escapeHtml(business.license)}</p>
       </div>
       <div>
@@ -183,7 +183,6 @@ const footer = () => `
         <h2>Company</h2>
         <a href="/about/">About</a>
         <a href="/process/">Our Process</a>
-        <a href="/projects/">Projects</a>
         <a href="/reviews/">Reviews</a>
         <a href="/resources/">Roofing Resources</a>
         <a href="/service-areas/">Service Areas</a>
@@ -195,7 +194,7 @@ const footer = () => `
         <a href="tel:${business.phoneHref}" data-event="phone_click" data-position="footer">${business.phoneDisplay}</a>
         <a href="mailto:${business.email}" data-event="email_click" data-position="footer">${business.email}</a>
         <span>Greater Chicago · Barrington headquarters</span>
-        <a href="${quoteHref}" data-event="quote_cta_click" data-position="footer" data-intent="quote">Get my instant quote</a>
+        <a href="${quoteHref}" data-event="quote_cta_click" data-position="footer" data-intent="quote">Request a quote</a>
       </div>
     </div>
     <div class="shell footer-bottom">
@@ -209,7 +208,7 @@ const footer = () => `
   </footer>
   <nav class="mobile-conversion" aria-label="Quick actions">
     <a href="tel:${business.phoneHref}" data-event="mobile_sticky_call_click" data-position="sticky">${icon("phone")}Call Now</a>
-    <a href="${quoteHref}" data-event="quote_cta_click" data-position="sticky" data-intent="quote">${icon("arrow")}Instant Quote</a>
+    <a href="${quoteHref}" data-event="quote_cta_click" data-position="sticky" data-intent="quote">${icon("arrow")}Request a Quote</a>
   </nav>`;
 
 const structuredData = ({
@@ -259,7 +258,11 @@ const structuredData = ({
         {
           "@type": "City",
           name: "Barrington, Illinois"
-        }
+        },
+        { "@type": "City", name: "Darien, Illinois" },
+        { "@type": "City", name: "Tinley Park, Illinois" },
+        { "@type": "City", name: "Orland Park, Illinois" },
+        { "@type": "State", name: "Illinois" }
       ],
       hasCredential: {
         "@type": "EducationalOccupationalCredential",
@@ -290,7 +293,7 @@ const structuredData = ({
         "Storm damage restoration",
         "Storm damage assessment",
         "Insurance-related repair estimating",
-        "Contractor-side storm documentation",
+        "Storm-damage documentation",
         "Water and flood damage assessments",
         "Siding and gutters",
         "Interior restoration",
@@ -389,7 +392,13 @@ const structuredData = ({
         {
           "@type": "City",
           name: "Barrington, Illinois"
-        }
+        },
+        { "@type": "City", name: "Darien, Illinois" },
+        { "@type": "City", name: "Tinley Park, Illinois" },
+        { "@type": "City", name: "Orland Park, Illinois" },
+        ...(service.slug === "storm-damage-restoration"
+          ? [{ "@type": "State", name: "Illinois" }]
+          : [])
       ]
     });
   }
@@ -407,14 +416,14 @@ const structuredData = ({
       dateModified: article.dateModified,
       image: {
         "@type": "ImageObject",
-        url: `${business.siteUrl}/assets/raccoon-restoration-social-preview.png`,
-        width: 1200,
-        height: 630
+        url: `${business.siteUrl}${article.image || "/assets/raccoon-restoration-slogan-social.png"}`,
+        width: article.imageWidth || 1200,
+        height: article.imageHeight || 630
       },
       mainEntityOfPage: { "@id": `${business.siteUrl}${path}#webpage` },
       author: {
         "@type": "Organization",
-        name: "Raccoon Restoration Editorial Team",
+        name: article.authorName || "Raccoon Restoration Editorial Team",
         url: `${business.siteUrl}/about/`
       },
       publisher: { "@id": `${business.siteUrl}/#organization` },
@@ -473,9 +482,9 @@ export const layout = ({
   pageType = "content",
   service = null,
   faqItems = [],
-  socialImage = "/assets/raccoon-restoration-social-preview.png",
+  socialImage = "/assets/raccoon-restoration-slogan-social.png",
   socialImageAlt =
-    "Raccoon Restoration — Built Above Standard, serving Greater Chicago from Barrington, Illinois",
+    "Raccoon Restoration — We don’t follow industry standards. We set them. Serving Greater Chicago from Barrington, Illinois",
   socialImageWidth = 1200,
   socialImageHeight = 630,
   article = null,
@@ -487,7 +496,7 @@ export const layout = ({
       : `${title} | ${business.name}`;
   const canonical = `${business.siteUrl}${path}`;
   return `<!doctype html>
-<html lang="en">
+<html lang="en"${article?.htmlClass ? ` class="${escapeHtml(article.htmlClass)}"` : ""}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -502,6 +511,7 @@ export const layout = ({
   <link rel="preload" href="/assets/fonts/bebas-neue-v16-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/montserrat-v31-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/styles.css">
+  ${article?.stylesheet ? `<link rel="stylesheet" href="${escapeHtml(article.stylesheet)}">` : ""}
   <meta property="og:type" content="${article ? "article" : "website"}">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="${escapeHtml(business.name)}">
@@ -534,9 +544,9 @@ export const layout = ({
     article
   })}</script>
 </head>
-<body data-page-type="${pageType}">
+<body data-page-type="${pageType}"${pageType === "home" ? ' class="compact-layout"' : ""}>
   <a class="skip-link" href="#main">Skip to main content</a>
-  ${header()}
+  ${header(path)}
   <main id="main">${body}</main>
   ${footer()}
   <script type="module" src="/assets/main.js"></script>
@@ -644,7 +654,7 @@ export const faqList = (items = faqs) => `
 
 export const finalCta = ({
   eyebrow = "Expect more from your contractor",
-  title = "Ready to build above standard?",
+  title = "Let’s talk about your roof.",
   text = "Tell us what you see. We'll tell you what it means \u2014 and what it doesn't need."
 } = {}) => `
   <section class="final-cta pattern">
@@ -687,7 +697,7 @@ export const pageHero = ({
   breadcrumbItems = null,
   intro,
   primaryHref = quoteHref,
-  primaryLabel = "Get My Instant Quote",
+  primaryLabel = "Request a Quote",
   primaryEvent = "quote_cta_click",
   primaryIntent = "quote",
   secondaryHref = `tel:${business.phoneHref}`,

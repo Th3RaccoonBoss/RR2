@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Raccoon Restoration — Built Above Standard.",
+  "description": "Raccoon Restoration \u2014 We don\u2019t follow industry standards. We set them.",
   "scripts": {
     "config:vercel": "node scripts/generate-vercel-config.mjs",
     "build": "npm run config:vercel && node scripts/build.mjs",

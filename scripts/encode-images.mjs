@@ -32,6 +32,16 @@ const JPEG_QUALITY = 0.72;
 const PNG_QUALITY = 0.9;
 const ENCODABLE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png"]);
 
+// Preserve the owner-approved comparison photos and authentic manufacturer
+// artwork exactly as supplied. Full-size links and displayed images use the
+// same original bytes; all other assets retain the existing WebP pipeline.
+const PRESERVE_ORIGINAL_IMAGES = new Set([
+  "/assets/credentials/owens-corning-preferred-contractor.png",
+  "/assets/credentials/gaf-certified-residential-roofing-contractor.png",
+  "/assets/resources/is-it-hail-damage/hail-vs-blistering-horizontal.jpg",
+  "/assets/resources/is-it-hail-damage/hail-vs-blistering-vertical.png"
+]);
+
 // Sources whose WebP derivative is intentionally capped below intrinsic width
 // (rendered slots never need the full-resolution encode). The derivative is
 // written as `${basename}-${capWidth}w.webp` and the build transform swaps the
@@ -42,7 +52,7 @@ const qualityFor = (url) =>
   extname(url).toLowerCase() === ".png" ? PNG_QUALITY : JPEG_QUALITY;
 
 function isEncodableUrl(url) {
-  return ENCODABLE_EXTENSIONS.has(extname(url).toLowerCase());
+  return !PRESERVE_ORIGINAL_IMAGES.has(url) && ENCODABLE_EXTENSIONS.has(extname(url).toLowerCase());
 }
 
 export function webpUrlFor(url) {

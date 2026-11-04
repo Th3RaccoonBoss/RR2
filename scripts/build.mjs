@@ -166,7 +166,7 @@ await writeFile(
   minifyCss(
     [
       await readFile(join(root, "src", "styles.css"), "utf8"),
-      await readFile(join(root, "src", "case-studies.css"), "utf8")
+      await readFile(join(root, "src", "compact.css"), "utf8")
     ].join("\n")
   ),
   "utf8"
@@ -271,8 +271,8 @@ await cp(
   join(dist, "assets", "footer-brand-pattern.jpg")
 );
 await cp(
-  join(root, "public", "assets", "raccoon-restoration-social-preview.png"),
-  join(dist, "assets", "raccoon-restoration-social-preview.png")
+  join(root, "public", "assets", "raccoon-restoration-slogan-social.png"),
+  join(dist, "assets", "raccoon-restoration-slogan-social.png")
 );
 
 const imageAssets = new Set(
@@ -371,3 +371,8 @@ await writeFile(
 console.log(
   `Built ${pages.length} pages, ${sitemapPages.length} indexable URLs, and production assets in dist/.`
 );
+
+// Approved editorial and credential assets are source-controlled, not copied from a preview build.
+for (const directory of ["credentials", "resources"]) {
+  await cp(join(root, "public", "assets", directory), join(dist, "assets", directory), { recursive: true });
+}

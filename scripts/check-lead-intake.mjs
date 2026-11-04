@@ -301,3 +301,14 @@ test("rejects cross-origin intake before reading customer data", async () => {
   assert.equal(response.status, 403);
   assert.equal((await response.json()).error, "origin_not_allowed");
 });
+
+
+test("website job note identifies source and requires an immediate inspection call", () => {
+  const lead = validateLeadPayload(validPayload({ message: "Details ".repeat(200) }), { now });
+  const notes = buildJobNotes(lead);
+  assert.ok(notes.startsWith("WEBSITE LEAD: Raccoon Restoration website form\n"));
+  assert.match(notes, /SALES ACTION: Call the lead immediately to schedule an inspection and prepare an estimate\./);
+  assert.match(notes, /Source page: \/contact\//);
+  assert.ok(notes.length <= 1000);
+  assert.ok(notes.indexOf("SALES ACTION:") < notes.indexOf("Customer details:"));
+});

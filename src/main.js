@@ -318,8 +318,9 @@ function setupActiveNavigation() {
       ".desktop-nav > a, .nav-dropdown__panel a, .mobile-menu a"
     )
     .forEach((link) => {
-      const href = new URL(link.href, window.location.origin).pathname;
-      const isCurrent = href === path;
+      const destination = new URL(link.href, window.location.origin);
+      const isCurrent = destination.origin === window.location.origin &&
+        !destination.hash && destination.pathname === path;
       if (isCurrent) {
         link.classList.add("is-active");
         link.setAttribute("aria-current", "page");

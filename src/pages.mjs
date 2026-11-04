@@ -7,29 +7,23 @@ import {
   services
 } from "./data.mjs";
 import { resourceArticles } from "./resources.mjs";
-import {
-  caseStudyCrossLinks,
-  caseStudyPages
-} from "./case-study-templates.mjs";
+import { homeBody } from "./home.mjs";
+import { renderHailArticle } from "./hail-article.mjs";
 import {
   aboveStandardGrid,
-  assuranceBand,
   breadcrumbs,
   button,
   faqList,
   finalCta,
-  founderSection,
   icon,
   inspectionForm,
   layout,
   pageHero,
-  proofBand,
   quoteCta,
   sectionHeading,
   servicesGrid,
   trustStrip,
-  verifiedQuotes,
-  workStrip
+  verifiedQuotes
 } from "./templates.mjs";
 
 const resourceCards = (items = resourceArticles) => `
@@ -89,139 +83,13 @@ const serviceGuide = (serviceSlug) =>
 
 const home = {
   path: "/",
-  lastModified: "2026-10-30",
+  lastModified: "2026-11-04",
   html: layout({
     title: "Roofing Contractor in Barrington & Greater Chicago",
-    description:
-      "Roof repair, roof replacement, and storm damage restoration in Barrington and Greater Chicago. Contact Raccoon Restoration for a free roof inspection.",
+    description: "Barrington-based roof repair, roof replacement and storm restoration across Greater Chicago. Storm-damage inquiries welcome from throughout Illinois.",
     path: "/",
     pageType: "home",
-    faqItems: faqs.slice(0, 3),
-    body: `
-      <section class="home-hero">
-        <picture class="home-hero__picture">
-          <source media="(max-width: 640px)" srcset="/assets/editorial-v2/home-hero-mobile-800x1000.jpg">
-          <img class="home-hero__image" src="/assets/images/hero-home.jpg" alt="" width="1800" height="1013" fetchpriority="high" decoding="async">
-        </picture>
-        <div class="home-hero__scrim"></div>
-        <div class="shell home-hero__inner">
-          <div class="home-hero__copy">
-            <p class="eyebrow">Barrington, Illinois · Greater Chicago Roofing</p>
-            <h1>Built<span class="hero-mobile-break"><br></span> Above<br><span>Standard.</span></h1>
-            <p class="home-hero__lead">Roof repair, roof replacement, and storm damage restoration in Barrington and Greater Chicago.</p>
-            <p class="home-hero__support">Clear findings. Straightforward options. One accountable local team from inspection through final walkthrough.</p>
-            <div class="button-row">
-              ${quoteCta({ position: "hero" })}
-              ${button({
-                href: "/services/",
-                label: "Explore Our Services",
-                variant: "outline",
-                event: "service_card_click",
-                position: "hero"
-              })}
-            </div>
-          </div>
-          <a class="hero-scroll" href="#intent" aria-label="Explore the homepage">
-            <span>Explore</span><i aria-hidden="true"></i>
-          </a>
-        </div>
-      </section>
-      ${trustStrip()}
-
-      <section class="section intent-section" id="intent">
-        <div class="shell">
-          ${sectionHeading({
-            eyebrow: "Start with what you need",
-            title: "What brings you here?"
-          })}
-          <div class="intent-grid">
-            <a href="/services/roof-repair/" data-event="intent_selector_click" data-intent="active-leak"><span>01</span><h3>I have an active leak</h3><p>Protect the interior and locate the source.</p>${icon("arrow")}</a>
-            <a href="/services/roof-repair/" data-event="intent_selector_click" data-intent="aging-roof"><span>02</span><h3>My roof is getting older</h3><p>Understand condition before deciding repair or replacement.</p>${icon("arrow")}</a>
-            <a href="/services/storm-damage-restoration/" data-event="intent_selector_click" data-intent="storm"><span>03</span><h3>My home was hit by a storm</h3><p>Document conditions and plan the next step.</p>${icon("arrow")}</a>
-            <a href="/services/roof-replacement/" data-event="intent_selector_click" data-intent="replacement"><span>04</span><h3>I am planning a replacement</h3><p>Compare the complete system, scope, and process.</p>${icon("arrow")}</a>
-            <a href="/services/gutters-exteriors/" data-event="intent_selector_click" data-intent="exteriors"><span>05</span><h3>I need gutter or exterior work</h3><p>Review drainage and connected exterior components.</p>${icon("arrow")}</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--dark services-section pattern">
-        <div class="shell">
-          ${sectionHeading({
-            eyebrow: "Roofing & Restoration",
-            title: "Roofing services in Barrington &amp; Greater Chicago.",
-            intro: "Focused services for the parts of your home that face weather first.",
-            invert: true
-          })}
-          ${servicesGrid()}
-        </div>
-      </section>
-
-      ${workStrip()}
-
-      <section class="section section--cream standard-section">
-        <div class="shell">
-          ${sectionHeading({
-            eyebrow: "Our working standard",
-            title: "What above standard looks like.",
-            intro: "Clear scope, careful execution, and accountable closeout."
-          })}
-          ${aboveStandardGrid()}
-          <div class="centered-action">
-            ${button({
-              href: "/process/",
-              label: "See Our Process",
-              variant: "dark",
-              position: "process"
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section class="storm-panel">
-        <div class="storm-protocol" aria-label="Four-step storm response protocol">
-          <div class="storm-protocol__header">
-            <p class="eyebrow">Field protocol</p>
-            <strong>Observe safely.<br>Document clearly.</strong>
-          </div>
-          <ol>
-            <li><span>01</span><div><strong>Ground check</strong><p>Look for visible changes without climbing onto the roof.</p></div></li>
-            <li><span>02</span><div><strong>Interior protection</strong><p>Move belongings and contain water only where it is safe.</p></div></li>
-            <li><span>03</span><div><strong>Photo record</strong><p>Capture visible conditions, timing, and affected areas.</p></div></li>
-            <li><span>04</span><div><strong>Professional assessment</strong><p>Separate observed evidence from assumptions about coverage.</p></div></li>
-          </ol>
-        </div>
-        <div class="storm-panel__copy pattern">
-          <p class="eyebrow">Storm guidance</p>
-          <h2>Storm damage is stressful.<br><span>Your contractor should not be.</span></h2>
-          <p>We document visible storm damage, prepare the repair estimate, and can discuss the damage and repair options with your insurer’s representative. Raccoon Restoration is your contractor—not a public adjuster.</p>
-          ${button({
-            href: "/services/storm-damage-restoration/",
-            label: "Get Storm Guidance",
-            position: "storm",
-            event: "storm_damage_cta_click"
-          })}
-        </div>
-      </section>
-
-      ${proofBand()}
-      ${founderSection()}
-      ${assuranceBand()}
-
-      <section class="section section--dark faq-section pattern">
-        <div class="shell faq-layout">
-          ${sectionHeading({
-            eyebrow: "Straight answers",
-            title: "Answers before the inspection.",
-            invert: true
-          })}
-          <div class="faq-column">
-            ${faqList(faqs.slice(0, 3))}
-            <a class="text-link faq-more-link" href="/faq/">All questions ${icon("arrow")}</a>
-          </div>
-        </div>
-      </section>
-      ${finalCta()}
-    `
+    body: homeBody()
   })
 };
 
@@ -267,10 +135,12 @@ const serviceIndex = {
 
 const servicePages = services.map((service) => ({
   path: `/services/${service.slug}/`,
-  lastModified: "2026-10-30",
+  lastModified: "2026-11-04",
   html: layout({
-    title: `Greater Chicago ${service.name}`,
-    description: `${service.name} in Barrington and Greater Chicago from Raccoon Restoration. Request a free inspection and a clear, documented scope for your property.`,
+    title: service.slug === "storm-damage-restoration" ? "Illinois Storm Damage Restoration" : `Greater Chicago ${service.name}`,
+    description: service.slug === "storm-damage-restoration"
+      ? "Wind and hail damage assessments from Barrington-based Raccoon Restoration. Storm inquiries welcome across Illinois; availability confirmed by address."
+      : `${service.name} in Barrington and Greater Chicago from Raccoon Restoration. Request a free inspection and a clear, documented scope for your property.`,
     path: `/services/${service.slug}/`,
     pageType: "service",
     service,
@@ -278,13 +148,15 @@ const servicePages = services.map((service) => ({
     body: `
       ${pageHero({
         eyebrow: service.eyebrow,
-        title: `${service.name} in<br>Greater Chicago`,
+        title: service.slug === "storm-damage-restoration" ? "Storm-damage restoration<br>across Illinois." : `${service.name} in<br>Greater Chicago`,
         breadcrumbLabel: service.name,
         breadcrumbItems: [
           { label: "Services", href: "/services/" },
           { label: service.name, href: "#" }
         ],
-        intro: service.summary,
+        intro: service.slug === "storm-damage-restoration"
+          ? `${service.summary} Our office is in Barrington, and we welcome storm-damage inquiries from across Illinois. Availability and scheduling are confirmed for each property.`
+          : service.summary,
         image: service.image,
         imageMobile: service.imageMobile,
         imageAlt: service.imageAlt,
@@ -381,7 +253,7 @@ const servicePages = services.map((service) => ({
           <p class="related-services__location">
             Headquartered in Barrington and serving Greater Chicago.
             <a class="text-link" href="/service-areas/barrington-il/">Roofing in Barrington ${icon("arrow")}</a>
-            <a class="text-link" href="/service-areas/">Greater Chicago service areas ${icon("arrow")}</a>
+            <a class="text-link" href="/service-areas/">Service areas and Illinois storm response ${icon("arrow")}</a>
           </p>
         </div>
       </section>
@@ -394,312 +266,8 @@ const servicePages = services.map((service) => ({
   })
 }));
 
-const projectFigure = ({
-  src,
-  srcset,
-  sizes = "(max-width: 800px) calc(100vw - 32px), (max-width: 1100px) 50vw, 58vw",
-  width = 1920,
-  height = 1080,
-  eyebrow,
-  title,
-  alt,
-  className = ""
-}) => `
-  <figure class="project-figure${className ? ` ${className}` : ""}">
-    <div class="project-figure__media">
-      <img src="${src}"${srcset ? ` srcset="${srcset}" sizes="${sizes}"` : ""} alt="${alt}" width="${width}" height="${height}" loading="lazy" decoding="async">
-    </div>
-    <figcaption>
-      <span>${eyebrow}</span>
-      <h3>${title}</h3>
-    </figcaption>
-  </figure>`;
-
-const projects = {
-  path: "/projects/",
-  html: layout({
-    title: "Roofing Project Portfolio",
-    description:
-      "Explore residential roof replacements, commercial flat roof installations, exterior transformations, and field work from Raccoon Restoration.",
-    path: "/projects/",
-    pageType: "projects",
-    body: `
-      <section class="project-hero">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/assets/projects/project-tudor-residence-exterior-polished-v7-mobile-800x1000.jpg">
-          <img class="project-hero__image" src="/assets/projects/project-tudor-residence-exterior-polished-v7-1600.jpg" srcset="/assets/projects/project-tudor-residence-exterior-polished-v7-640.jpg 640w, /assets/projects/project-tudor-residence-exterior-polished-v7-1280.jpg 1280w, /assets/projects/project-tudor-residence-exterior-polished-v7-1600.jpg 1600w" sizes="100vw" alt="Polished completed view of a large Tudor-inspired home with dark roof planes, a round stone tower, black-and-white trim, a clean entry, defined planting beds, and a manicured lawn" width="1600" height="900" fetchpriority="high" decoding="async">
-        </picture>
-        <div class="project-hero__scrim"></div>
-        <div class="shell project-hero__inner">
-          ${breadcrumbs([{ label: "Projects", href: "#" }])}
-          <div class="project-hero__copy">
-            <p class="eyebrow">Raccoon Restoration Project Portfolio</p>
-            <h1>Real work.<br><span>Built above standard.</span></h1>
-            <p>Residential roof replacements, commercial flat roofing, exterior transformations, and documented field work.</p>
-            <div class="button-row">
-              ${button({
-                href: "#residential-projects",
-                label: "Explore Selected Work",
-                event: "project_gallery_click",
-                position: "projects_hero"
-              })}
-              ${button({
-                href: "/contact/#inspection-form",
-                label: "Discuss Your Project",
-                variant: "outline",
-                event: "project_cta_click",
-                position: "projects_hero"
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="project-index-section" aria-label="Project categories">
-        <div class="shell">
-          <nav class="project-index" aria-label="Jump to a project category">
-            <a href="#residential-projects">
-              <span>01</span>
-              <strong>Residential</strong>
-              <small>Installation · Completed · Detail</small>
-            </a>
-            <a href="#commercial-projects">
-              <span>02</span>
-              <strong>Commercial</strong>
-              <small>Low-Slope · Crew · Logistics</small>
-            </a>
-            <a href="#transformations">
-              <span>03</span>
-              <strong>Transformations</strong>
-              <small>Finished Work · Detail</small>
-            </a>
-            <a href="#field-presence">
-              <span>04</span>
-              <strong>Field Presence</strong>
-              <small>Branded Fleet · On-Site</small>
-            </a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="section project-chapter" id="residential-projects">
-        <div class="shell">
-          <header class="project-chapter__header">
-            <span>01</span>
-            <div>
-              <p class="eyebrow">Residential roofing</p>
-              <h2>Every roof tells the story from above.</h2>
-              <p>Installation, complex roof plans, transitions, and finished details.</p>
-            </div>
-          </header>
-          <div class="project-mosaic project-mosaic--residential">
-            ${projectFigure({
-              src: "/assets/projects/project-modern-residence-roof-aerial-1280.jpg",
-              srcset:
-                "/assets/projects/project-modern-residence-roof-aerial-640.jpg 640w, /assets/projects/project-modern-residence-roof-aerial-960.jpg 960w, /assets/projects/project-modern-residence-roof-aerial-1280.jpg 1280w",
-              sizes:
-                "(max-width: 800px) calc(100vw - 32px), (max-width: 1400px) calc(100vw - 64px), 1280px",
-              width: 1280,
-              height: 720,
-              eyebrow: "Residential · Aerial View",
-              title: "Modern Residential Roofline",
-              alt: "Top-down drone view of a large dark multi-plane roof over a modern white residence and attached garage, surrounded by lawn and trees",
-              className: "project-figure--span-12 project-figure--cinema"
-            })}
-            ${projectFigure({
-              src: "/assets/projects/project-residential-installation-aerial-1020.jpg",
-              srcset:
-                "/assets/projects/project-residential-installation-aerial-640.jpg 640w, /assets/projects/project-residential-installation-aerial-1020.jpg 1020w",
-              width: 1020,
-              height: 1020,
-              eyebrow: "Residential · In Progress",
-              title: "Residential Roof Installation From Above",
-              alt: "Drone view of a large residence during roof installation, with exposed wood decking, underlayment, workers, and protective tarps around the property",
-              className: "project-figure--span-5"
-            })}
-            ${projectFigure({
-              src: "/assets/projects/project-brick-residence-roof-aerial-1280.jpg",
-              srcset:
-                "/assets/projects/project-brick-residence-roof-aerial-640.jpg 640w, /assets/projects/project-brick-residence-roof-aerial-960.jpg 960w, /assets/projects/project-brick-residence-roof-aerial-1280.jpg 1280w",
-              width: 1280,
-              height: 720,
-              eyebrow: "Residential · Architectural View",
-              title: "Brick Residence Roofline",
-              alt: "Drone view of a large brick residence with a brown multi-plane roof, two dormers, twin chimneys, copper-toned accents, and adjoining low-slope roof sections",
-              className: "project-figure--span-7 project-figure--position-brick"
-            })}
-            ${projectFigure({
-              src: "/assets/projects/project-roof-detail-dormers-1020.jpg",
-              srcset:
-                "/assets/projects/project-roof-detail-dormers-640.jpg 640w, /assets/projects/project-roof-detail-dormers-1020.jpg 1020w",
-              width: 1020,
-              height: 1020,
-              eyebrow: "Residential · Roof Detail",
-              title: "Architectural Roof Detail",
-              alt: "Close aerial view of a steep dark patterned roof with two dormers, a brick chimney, and a flat-roof transition",
-              className: ""
-            })}
-            <article class="project-proof-note project-proof-note--compact">
-              <p class="eyebrow">Documented from the field</p>
-              <h3>Scale. Shape. Finish.</h3>
-              <p>Aerial records make roof geometry, transitions, and the finished system easier to examine.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section project-chapter project-chapter--dark" id="commercial-projects">
-        <div class="shell">
-          <header class="project-chapter__header">
-            <span>02</span>
-            <div>
-              <p class="eyebrow">Commercial roofing</p>
-              <h2>Commercial flat roofing at full scale.</h2>
-              <p>One low-slope roof installation documented from crew level to full-building aerial view.</p>
-            </div>
-          </header>
-          <article class="project-case-study" aria-labelledby="commercial-flat-roof-title">
-            <header class="project-case-study__header">
-              <div>
-                <p class="eyebrow">Commercial roofing project</p>
-                <h3 id="commercial-flat-roof-title">Commercial Flat Roof Installation</h3>
-              </div>
-              <p>Three field views show installation detail, building context, and full-roof coverage.</p>
-            </header>
-            <ul class="project-case-study__facts" aria-label="Commercial project record details">
-              <li><span>System</span><strong>Low-slope roofing</strong></li>
-              <li><span>Record</span><strong>Three field views</strong></li>
-              <li><span>Coverage</span><strong>Crew to aerial</strong></li>
-            </ul>
-            <div class="project-case-study__sequence">
-              ${projectFigure({
-                src: "/assets/projects/project-low-slope-installation-crew-enhanced-v3-1280.jpg",
-                srcset:
-                  "/assets/projects/project-low-slope-installation-crew-enhanced-v3-640.jpg 640w, /assets/projects/project-low-slope-installation-crew-enhanced-v3-1280.jpg 1280w",
-                width: 1280,
-                height: 720,
-                eyebrow: "Sequence 01 · Surface Installation",
-                title: "Commercial Roof Installation",
-                alt: "Roofing crew in high-visibility vests installing a white low-slope roofing system on a commercial building",
-                className: "project-figure--case-step project-figure--case-lead"
-              })}
-              ${projectFigure({
-                src: "/assets/projects/project-low-slope-roof-aerial-enhanced-v3-1280.jpg",
-                srcset:
-                  "/assets/projects/project-low-slope-roof-aerial-enhanced-v3-640.jpg 640w, /assets/projects/project-low-slope-roof-aerial-enhanced-v3-1280.jpg 1280w",
-                width: 1280,
-                height: 720,
-                eyebrow: "Sequence 02 · Building Context",
-                title: "Full Commercial Roof View",
-                alt: "Aerial view of a large commercial building during flat roof installation, with a bright white low-slope roofing system, rooftop equipment, and workers",
-                className: "project-figure--case-step"
-              })}
-              ${projectFigure({
-                src: "/assets/projects/project-low-slope-installation-topdown-enhanced-v3-1280.jpg",
-                srcset:
-                  "/assets/projects/project-low-slope-installation-topdown-enhanced-v3-640.jpg 640w, /assets/projects/project-low-slope-installation-topdown-enhanced-v3-1280.jpg 1280w",
-                width: 1280,
-                height: 720,
-                eyebrow: "Sequence 03 · Overhead Verification",
-                title: "Low-Slope Roof Installation From Above",
-                alt: "Top-down drone view of an active commercial flat roof installation with a white low-slope roofing system, workers, tools, and rooftop equipment",
-                className: "project-figure--case-step"
-              })}
-            </div>
-          </article>
-          <div class="project-mosaic project-mosaic--logistics">
-            ${projectFigure({
-              src: "/assets/projects/project-material-delivery-clear-v2-1020.jpg",
-              srcset:
-                "/assets/projects/project-material-delivery-clear-v2-640.jpg 640w, /assets/projects/project-material-delivery-clear-v2-1020.jpg 1020w",
-              width: 1020,
-              height: 1020,
-              eyebrow: "Commercial · Material Delivery",
-              title: "Materials Moving Up",
-              alt: "Crane lifting packaged roofing materials to the top of a multi-story brick commercial building",
-              className: "project-figure--span-7 project-figure--contained"
-            })}
-            <article class="project-proof-note project-proof-note--logistics">
-              <p class="eyebrow">Supporting field record</p>
-              <h3>Logistics are part of the work.</h3>
-              <p>Coordinated delivery keeps materials, access, and installation moving. This field record shows rooftop staging on an active commercial site.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--cream project-chapter" id="transformations">
-        <div class="shell">
-          <header class="project-chapter__header">
-            <span>03</span>
-            <div>
-              <p class="eyebrow">Verified outcomes</p>
-              <h2>Finished work should stand on its own.</h2>
-              <p>Completed roofs are shown at useful scale, with matched views when a comparison is available.</p>
-            </div>
-          </header>
-          <div class="project-transformation-proof">
-            ${projectFigure({
-              src: "/assets/projects/project-residential-roofline-aerial-1270.jpg",
-              srcset:
-                "/assets/projects/project-residential-roofline-aerial-640.jpg 640w, /assets/projects/project-residential-roofline-aerial-1270.jpg 1270w",
-              sizes:
-                "(max-width: 800px) calc(100vw - 32px), (max-width: 1100px) calc(100vw - 64px), 62vw",
-              width: 1270,
-              height: 1080,
-              eyebrow: "Verified Record · Completed Roof",
-              title: "Finished Residential Roofline",
-              alt: "Aerial view of a completed dark multi-plane roof across a large white residence and attached garage",
-              className: "project-figure--transformation-outcome"
-            })}
-            <aside class="project-evidence-card" aria-labelledby="comparison-source-title">
-              <p class="eyebrow">Proof standard</p>
-              <h3 id="comparison-source-title">Documented. Matched. Traceable.</h3>
-              <p>Before-and-after views should come from the same property and preserve a clear comparison.</p>
-              <ul>
-                <li><span>Published now</span><strong>Completed project photography</strong></li>
-                <li><span>Comparison rule</span><strong>Matched original views</strong></li>
-                <li><span>Presentation</span><strong>No baked labels or artificial upscaling</strong></li>
-              </ul>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <section class="section project-field" id="field-presence">
-        <div class="shell project-field__grid">
-          <div class="project-field__copy">
-            <p class="eyebrow">04 · Brand in motion</p>
-            <h2>A brand that shows up.</h2>
-            <p>The Raccoon Restoration identity carries into the field through a recognizable service vehicle and full-length ladder rack.</p>
-            <p class="project-field__note">Share your roof type, concern, and location to ask about similar work.</p>
-            ${button({
-              href: "/contact/#inspection-form",
-              label: "Discuss a Similar Project",
-              variant: "dark",
-              event: "project_cta_click",
-              position: "projects_field"
-            })}
-          </div>
-          <figure class="project-field__media">
-            <picture>
-              <source media="(max-width: 640px)" srcset="/assets/editorial-v2/contact-branded-service-truck-editorial-mobile-landscape-800x450.jpg">
-              <img src="/assets/editorial-v2/contact-branded-service-truck-web-1280.jpg" alt="Black Raccoon Restoration pickup truck with a full-length ladder rack parked on a residential street" width="1280" height="720" loading="lazy" decoding="async">
-            </picture>
-            <figcaption>Raccoon Restoration fleet presentation</figcaption>
-          </figure>
-        </div>
-      </section>
-      ${caseStudyCrossLinks()}
-      ${finalCta({
-        eyebrow: "Planning your next project?",
-        title: "Put your property in the next chapter.",
-        text: "Start with a clear conversation about the work in front of you."
-      })}
-    `
-  })
-};
-
+// Project galleries are held from the public build pending provenance confirmation.
+// Reversible temporary redirects preserve existing public entry points.
 const reviews = {
   path: "/reviews/",
   html: layout({
@@ -737,6 +305,7 @@ const reviews = {
                 <span class="reviews-source-panel__mark">BBB</span>
                 <div><strong>A+ BBB rating</strong><span>BBB Accredited Business</span></div>
               </div>
+              <div class="reviews-source-panel__rating"><span class="reviews-source-panel__mark">5.0</span><div><strong>Google rating</strong><span>29 reviews · checked November 4, 2026</span></div></div>
               ${verifiedQuotes()
                 .map(
                   (quote) => `
@@ -747,8 +316,8 @@ const reviews = {
                 )
                 .join("")}
               <div class="reviews-source-panel__links">
+                <a href="https://www.google.com/maps/place/Raccoon+Restoration/@41.6325274,-88.6188987,9z/data=!3m1!4b1!4m6!3m5!1s0x8b64af637c69da7b:0xd80a48f725dc1060!8m2!3d41.6344115!4d-87.959509!16s%2Fg%2F11x785qcl4?entry=ttu&amp;g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" data-event="review_source_click" data-position="reviews_hero">Read reviews on Google ${icon("arrow")}</a>
                 <a href="https://www.bbb.org/us/il/barrington/profile/roofing-consultants/raccoon-restoration-0654-90025835" target="_blank" rel="noopener noreferrer" data-event="review_source_click" data-position="reviews_hero">Read reviews on BBB ${icon("arrow")}</a>
-                <a href="https://www.gaf.com/en-us/roofing-contractors/residential/usa/il/barrington/raccoon-restoration-1151998" target="_blank" rel="noopener noreferrer" data-event="review_source_click" data-position="reviews_hero">View GAF profile ${icon("arrow")}</a>
               </div>
             </aside>
           </div>
@@ -802,11 +371,11 @@ const about = {
           "Black branded Raccoon Restoration Rivian SUV and Ford work truck parked together on wet pavement",
         imageWidth: 1254,
         imageHeight: 1254,
-        mediaCaption: "Raccoon Restoration fleet in the field"
+        mediaCaption: "Raccoon Restoration brand illustration"
       })}
       <section class="section section--cream">
         <div class="shell editorial-grid">
-          <div class="pull-quote">“Built Above Standard” should be visible in every step—not only in the finished roof.</div>
+          <div class="pull-quote">“We don’t follow industry standards. We set them.”</div>
           <div class="prose">
             <p>Homeowners should understand what was found, what is being recommended, and why it fits the property.</p>
             <p>That means a defined scope, reliable communication, respect for the home, and a complete final walkthrough.</p>
@@ -839,9 +408,9 @@ const about = {
 
           <div class="team-expertise__grid">
             <article class="team-expertise__card team-expertise__card--claims">
-              <p class="eyebrow">Contractor-side expertise</p>
+              <p class="eyebrow">Storm-damage expertise</p>
               <h3>Construction facts at the table.</h3>
-              <p>We organize the documentation, estimate, and repair options so the construction scope is clear—without acting as your public adjuster or insurer.</p>
+              <p>We organize the documentation, estimate, and repair options so the construction scope is clear.</p>
               <ul>
                 <li>${icon("check")}<span>Storm-damage inspections and documentation</span></li>
                 <li>${icon("check")}<span>Detailed repair scopes and estimates</span></li>
@@ -873,8 +442,6 @@ const about = {
               </ul>
             </article>
           </div>
-
-          <p class="team-expertise__disclosure">Raccoon Restoration is a roofing and restoration contractor, not a public adjuster. We do not interpret policy coverage, file claims on a customer’s behalf, or negotiate claim settlements. If a customer separately retains a licensed public adjuster, we can coordinate on construction documentation while that professional handles claim representation. Coverage decisions remain with the insurer.</p>
         </div>
       </section>
       <section class="section">
@@ -971,28 +538,28 @@ const process = {
 
 const serviceAreas = {
   path: "/service-areas/",
-  lastModified: "2026-10-30",
+  lastModified: "2026-11-04",
   html: layout({
-    title: "Greater Chicago Roofing Service Area",
+    title: "Illinois Storm Response & Roofing Areas",
     description:
-      "Raccoon Restoration serves the Greater Chicago area from its Barrington headquarters. Check roofing and restoration availability by city or ZIP code.",
+      "Barrington-based roofing serving Greater Chicago, including Darien, Tinley Park and Orland Park. Ask about storm-damage response anywhere in Illinois.",
     path: "/service-areas/",
     pageType: "location",
     body: `
       ${pageHero({
-        eyebrow: "Barrington headquarters · Greater Chicago service",
-        title: "Roofing service areas<br>across Greater Chicago.",
+        eyebrow: "Based in Barrington, Illinois",
+        title: "Greater Chicago roofing.<br>Illinois storm response.",
         breadcrumbLabel: "Service Areas",
-        intro: "Residential and commercial roofing and restoration across the Greater Chicago area. Share the property city or ZIP code to confirm scheduling for your address.",
+        intro: "Our Barrington office serves roofing and restoration needs across Greater Chicago, including Darien, Tinley Park and Orland Park. If a storm damages your property elsewhere in Illinois, contact us to discuss the location, scope and current availability.",
         image:
           "/assets/editorial-v2/service-areas-residential-project-aerial-optimized-1600x900.jpg",
         imageMobile:
           "/assets/editorial-v2/service-areas-residential-project-aerial-optimized-800x1000.jpg",
         imageAlt:
-          "Aerial view of a completed residential roofing project on a large home",
+          "Aerial roofline illustration of a large residence",
         imageWidth: 1600,
         imageHeight: 900,
-        mediaCaption: "Residential roofing project",
+        mediaCaption: "Residential roofline illustration",
         heroClass: "page-hero--regional",
         primaryLabel: "Check My Address",
         primaryHref: "/contact/#inspection-form",
@@ -1001,24 +568,24 @@ const serviceAreas = {
         proofItems: [
           "Greater Chicago coverage",
           "Barrington headquarters",
-          "Address-level confirmation"
+          "Illinois storm inquiries"
         ]
       })}
       <section class="section section--cream regional-coverage">
         <div class="shell">
           ${sectionHeading({
-            eyebrow: "Greater Chicago service region",
-            title: "Built for the property—not a ZIP-code list.",
-            intro: "Coverage is organized around the region, while scheduling is confirmed for the exact address and scope."
+            eyebrow: "Communities we serve",
+            title: "Roofing help for your community.",
+            intro: "Barrington, Darien, Tinley Park and Orland Park are key service areas within our Greater Chicago coverage. The communities below are a starting point, not a boundary."
           })}
-          <div class="region-grid" aria-label="Greater Chicago roofing service regions">
-            <article><span>01</span><h3>Chicago</h3><p>Roofing and restoration inquiries across the city.</p></article>
-            <article><span>02</span><h3>Northwest Suburbs</h3><p>Including the Barrington headquarters region and surrounding communities.</p></article>
-            <article><span>03</span><h3>North Shore &amp; North Suburbs</h3><p>Residential and commercial property assessments across the northern market.</p></article>
-            <article><span>04</span><h3>Western Suburbs</h3><p>Project-specific service for roofing, storm, and exterior needs.</p></article>
-            <article><span>05</span><h3>Southwest Suburbs</h3><p>Availability confirmed by property address, scope, and schedule.</p></article>
+          <div class="region-grid" aria-label="Featured roofing service areas and Illinois storm response">
+            <article><span>01</span><h3>Barrington</h3><p>Our office is in Barrington, Illinois. Connect with our local team about roof repair, roof replacement or a storm-damage assessment.</p></article>
+            <article><span>02</span><h3>Darien</h3><p>Roofing and exterior service for Darien properties, with an assessment of the condition and a clear scope before work begins.</p></article>
+            <article><span>03</span><h3>Tinley Park</h3><p>Help with leaks, aging roofing and storm concerns in Tinley Park. Share the property location and what you have noticed.</p></article>
+            <article><span>04</span><h3>Orland Park</h3><p>Roof repair, replacement and storm-damage inquiries in Orland Park. The next step depends on your roof's condition and the work needed.</p></article>
+            <article><span>05</span><h3>Across Illinois</h3><p>Storms can affect communities beyond Greater Chicago. We welcome storm-damage inquiries from anywhere in Illinois and confirm availability for each property.</p></article>
           </div>
-          <p class="regional-coverage__note">Service availability can vary by project type, address, access, and schedule. Submit the city or ZIP code for confirmation before planning work.</p>
+          <p class="regional-coverage__note">Outside the communities listed here? Send your city or ZIP code. Availability depends on the location, project type, property access, weather and current schedule.</p>
         </div>
       </section>
       <section class="section">
@@ -1028,7 +595,7 @@ const serviceAreas = {
             <div>
               <p class="eyebrow">Verified headquarters</p>
               <h2>Barrington, Illinois</h2>
-              <p>Barrington is the home base and local trust anchor for a team serving properties throughout Greater Chicago.</p>
+              <p>Our Barrington office is the starting point for roofing and restoration work across Greater Chicago and storm-response inquiries across Illinois.</p>
               <a class="text-link" href="/service-areas/barrington-il/">Roofing services in Barrington, IL ${icon("arrow")}</a>
             </div>
           </div>
@@ -1046,8 +613,24 @@ const serviceAreas = {
           </aside>
         </div>
       </section>
+      <section class="section section--cream">
+        <div class="shell content-grid">
+          ${sectionHeading({
+            eyebrow: "When a storm reaches your community",
+            title: "Tell us where the damage happened.",
+            intro: "Storm-response inquiries are welcome from throughout Illinois. Contact us with the city or ZIP code, when the storm occurred and what you can safely see from the ground."
+          })}
+          <div class="content-card">
+            <h3>What happens next</h3>
+            <p>We will confirm whether we can serve the property, discuss access and scheduling, and explain the next step. Inspection timing depends on weather, conditions and current capacity.</p>
+            <p>Do not climb onto the roof to check for damage. Photos taken safely from the ground can help you describe the concern.</p>
+            <a class="text-link" href="/services/storm-damage-restoration/">Explore storm-damage restoration ${icon("arrow")}</a>
+            <a class="text-link" href="/resources/storm-damage-roof-assessment-illinois/">What a storm-damage assessment covers ${icon("arrow")}</a>
+          </div>
+        </div>
+      </section>
       ${finalCta({
-        eyebrow: "Greater Chicago roofing",
+        eyebrow: "Greater Chicago and Illinois storm response",
         title: "Start with your address.",
         text: "The team will confirm coverage and the next useful step for the property."
       })}
@@ -1055,25 +638,45 @@ const serviceAreas = {
   })
 };
 
+const barringtonFaqs = [
+  {
+    q: "Is Raccoon Restoration based in Barrington?",
+    a: "Yes. Our office is in Barrington, Illinois. Call (224) 500-6825 or use the inspection request form to discuss your property and current scheduling."
+  },
+  {
+    q: "Can I hire you without storm damage or an insurance claim?",
+    a: "Yes. Homeowners can hire us directly for roof repair or roof replacement. We offer competitive pricing and explain the proposed scope so you can decide what fits your property. An inspection helps determine whether repair or replacement is appropriate."
+  },
+  {
+    q: "What should I share when requesting a Barrington roof inspection?",
+    a: "Share the property location, what you have noticed, when it started and the best way to reach you. Mention any recent storm or active leak. Only take photos from a safe location; do not climb onto the roof."
+  },
+  {
+    q: "Do you also work outside Barrington?",
+    a: "Yes. We serve Greater Chicago, including Darien, Tinley Park and Orland Park, and welcome storm-damage inquiries from across Illinois. Availability is confirmed for each property based on location, scope and scheduling."
+  }
+];
+
 const barrington = {
   path: "/service-areas/barrington-il/",
-  lastModified: "2026-10-30",
+  lastModified: "2026-11-04",
   html: layout({
-    title: "Roofing Contractor in Barrington, IL",
+    title: "Barrington Roofing & Storm Restoration",
     description:
-      "Barrington roof repair, roof replacement, and storm damage restoration from Raccoon Restoration. Request a free inspection from our Barrington-based team.",
+      "Barrington storm-damage restoration and direct-pay roofing. Wind or hail concerns, roof repair or replacement: call (224) 500-6825 for a free inspection.",
     path: "/service-areas/barrington-il/",
     pageType: "location",
+    faqItems: barringtonFaqs,
     body: `
       ${pageHero({
         eyebrow: "Barrington, Illinois",
-        title: "Roofing contractor<br>in Barrington, IL.",
+        title: "Storm restoration &amp; roofing<br>in Barrington, IL.",
         breadcrumbLabel: "Barrington, IL",
         breadcrumbItems: [
           { label: "Service Areas", href: "/service-areas/" },
           { label: "Barrington, IL", href: "#" }
         ],
-        intro: "From leaks and aging roofs to storm concerns, start with a property-specific assessment from a Barrington company.",
+        intro: "Our office is in Barrington, Illinois. We help homeowners assess wind and hail damage to roofs and exteriors, plan restoration and choose the right roofing work. You can also hire us directly for roof repair or replacement without a storm or insurance claim.",
         image: "",
         sidePanel: {
           label: "Local point of contact",
@@ -1091,10 +694,11 @@ const barrington = {
         <div class="shell">
           ${sectionHeading({
             eyebrow: "Services in focus",
-            title: "Start with the part of the home that needs attention."
+            title: "Storm restoration and everyday roofing needs.",
+            intro: "A roof inspection helps identify the condition before you decide on the work. Explore the service that fits your concern, then tell us what is happening at your property."
           })}
           <div class="related-grid related-grid--four" aria-label="Services available from the Barrington team">
-            ${services
+            ${[services.find((service) => service.slug === "storm-damage-restoration"), ...services.filter((service) => service.slug !== "storm-damage-restoration")]
               .map(
                 (service) =>
                   `<a href="/services/${service.slug}/"><span>${service.eyebrow}</span><h3>${service.name}</h3>${icon("arrow")}</a>`
@@ -1106,17 +710,57 @@ const barrington = {
       <section class="section">
         <div class="shell content-grid">
           ${sectionHeading({
-            eyebrow: "A useful first conversation",
-            title: "Start with the property in front of you.",
-            intro: "Share what you see, when it started, and where it appears."
+            eyebrow: "Start with the condition",
+            title: "What does your Barrington roof need?",
+            intro: "Leaks, worn roofing and storm damage can call for different solutions. We inspect accessible roof and exterior conditions, document findings and explain the options for your property."
           })}
           <div class="content-card">
-            <h3>Before your inspection</h3>
-            <p>Note where you see the issue, when it appeared, whether weather changed it, and any safe-to-capture photos. Do not climb onto the roof.</p>
+            <h3>Wind and hail damage</h3>
+            <p>After a storm, we assess accessible roof and exterior conditions, including concerns involving shingles, gutters and siding. We document visible damage and explain the repair or restoration scope when work is warranted.</p>
+            <p>We prepare a repair estimate and discuss the repair options for your property.</p>
+            <a class="text-link" href="/services/storm-damage-restoration/">Explore storm-damage restoration ${icon("arrow")}</a>
+            <h3>Direct-pay roofing</h3>
+            <p>You do not need storm damage or an insurance claim to work with us. If you are paying directly for a repair or replacement, we offer competitive pricing and a clear scope so you can compare the proposed work, materials and cost.</p>
+            <p>Raccoon Restoration is an Owens Corning Roofing Preferred Contractor.</p>
+            <h3>Roof repair</h3>
+            <p>If the concern is limited to part of the roof, an inspection helps determine whether a focused repair is appropriate. Tell us where you see a leak or visible damage and when it began.</p>
+            <h3>Roof replacement</h3>
+            <p>If you are considering replacement, start with the condition of the existing roof and the scope of work. We explain the findings and proposed work so you can make an informed decision.</p>
+            <a class="text-link" href="/resources/roof-repair-vs-replacement-chicago/">Understand repair versus replacement ${icon("arrow")}</a>
           </div>
         </div>
       </section>
-      ${finalCta()}
+      <section class="section section--cream">
+        <div class="shell content-grid">
+          ${sectionHeading({
+            eyebrow: "Your first conversation",
+            title: "Request a roof inspection in Barrington.",
+            intro: "Call our office or use the inspection request form. Share your property location, the concern and the best way to reach you. We will confirm availability and scheduling."
+          })}
+          <div class="content-card">
+            <h3>Before your inspection</h3>
+            <p>Note where you see the issue, when it appeared and whether weather changed it. Photos taken safely from the ground can help explain the concern. Do not climb onto the roof.</p>
+            <p>Inspection scope depends on weather, safe access and the service requested. Start with what you know; you do not need to diagnose the roof yourself.</p>
+            <a class="text-link" href="tel:${business.phoneHref}" data-event="phone_click" data-position="location">Call ${business.phoneDisplay} ${icon("arrow")}</a>
+            <a class="text-link" href="/process/">See our inspection-to-completion process ${icon("arrow")}</a>
+          </div>
+        </div>
+      </section>
+      <section class="section section--dark faq-section pattern">
+        <div class="shell faq-layout">
+          ${sectionHeading({
+            eyebrow: "Barrington roofing questions",
+            title: "A clear starting point.",
+            invert: true
+          })}
+          <div class="faq-column">${faqList(barringtonFaqs)}</div>
+        </div>
+      </section>
+      ${finalCta({
+        eyebrow: "Your Barrington roofing team",
+        title: "Start with a free roof inspection.",
+        text: "Tell us what is happening at your property. We will confirm the next step and current availability."
+      })}
     `
   })
 };
@@ -1151,7 +795,7 @@ const resources = {
         <div class="shell">
           ${sectionHeading({
             eyebrow: "Start with the question",
-            title: "Four decisions worth getting right.",
+            title: "Start with the question on your roof.",
             intro: "Each guide separates useful evidence from shortcuts and pressure."
           })}
           ${resourceCards()}
@@ -1165,7 +809,7 @@ const resources = {
           </div>
           <div class="resource-principles__list">
             <article><span>01</span><div><h3>Property first</h3><p>No article can replace an inspection of the actual roof and building.</p></div></article>
-            <article><span>02</span><div><h3>Roles explained</h3><p>Contractor, carrier, and public-adjusting responsibilities stay distinct.</p></div></article>
+            <article><span>02</span><div><h3>Roles explained</h3><p>Inspection findings and written scopes help you plan the next step.</p></div></article>
             <article><span>03</span><div><h3>Sources linked</h3><p>Illinois licensing and consumer guidance are linked at the original source.</p></div></article>
           </div>
         </div>
@@ -1196,7 +840,11 @@ const resourcePages = resourceArticles.map((article) => {
       path: `/resources/${article.slug}/`,
       pageType: "article",
       article,
-      body: `
+      socialImage: article.image,
+      socialImageAlt: article.imageAlt,
+      socialImageWidth: article.imageWidth,
+      socialImageHeight: article.imageHeight,
+      body: article.slug === "is-it-hail-damage" ? renderHailArticle() : `
         <section class="resource-article-hero pattern">
           <div class="shell">
             ${breadcrumbs([
@@ -1303,6 +951,7 @@ const resourcePages = resourceArticles.map((article) => {
 
 const faq = {
   path: "/faq/",
+  lastModified: "2026-11-04",
   html: layout({
     title: "Roofing FAQ",
     description:
@@ -1426,6 +1075,7 @@ const financing = {
 
 const contact = {
   path: "/contact/",
+  lastModified: "2026-11-04",
   html: layout({
     title: "Greater Chicago Roof Inspection",
     description:
@@ -1440,7 +1090,7 @@ const contact = {
             <div class="contact-copy">
               <p class="eyebrow">Free quote &amp; inspection request</p>
               <h1>Tell us what is happening.</h1>
-              <p>Share the concern, property location, and the best way to reach you. A clear quote starts with understanding the property and scope.</p>
+              <p>Share the concern, property location, and the best way to reach you. Our Barrington office serves Greater Chicago and welcomes storm-damage inquiries from across Illinois. We will confirm availability for your address.</p>
               <div class="contact-methods">
                 <a href="tel:${business.phoneHref}" data-event="phone_click" data-position="contact"><span>${icon("phone")}</span><div><small>Call</small><strong>${business.phoneDisplay}</strong></div></a>
                 <a href="mailto:${business.email}" data-event="email_click" data-position="contact"><span>${icon("arrow")}</span><div><small>Email</small><strong>${business.email}</strong></div></a>
@@ -1450,7 +1100,7 @@ const contact = {
               <p class="contact-license">${business.license}</p>
             </div>
             <div class="form-panel" id="inspection-form">
-              <p class="eyebrow">Get your instant quote</p>
+              <p class="eyebrow">Request a Quote</p>
               <h2>Start with the property.</h2>
               ${inspectionForm()}
             </div>
@@ -1543,7 +1193,6 @@ const terms = {
       [
         ["Informational purpose", "Website content is general information and does not replace a property inspection, written proposal, contract, manufacturer document, insurance policy, legal advice, or engineering advice."],
         ["Service availability", "Services, geographic coverage, scheduling, financing, materials, certifications, and warranty options may change and should be confirmed in writing for each project."],
-        ["Insurance", "Raccoon Restoration is a roofing and restoration contractor, not a public adjuster. The company may inspect and document visible damage, prepare a repair estimate, and confer with an insurance company’s representative about property damage and repair options. Raccoon Restoration does not interpret policy coverage, file claims on a customer’s behalf, or negotiate claim settlements. Coverage decisions belong to the insurance carrier."],
         ["Estimates and contracts", "No website statement creates a binding project scope or price. Approved work is governed by the signed written agreement and incorporated documents."],
         ["Intellectual property", "Site copy, design, and approved brand assets may not be reused in a way that implies affiliation or endorsement."],
         ["Contact", `Questions about these terms may be sent to ${business.email}.`]
@@ -1628,8 +1277,6 @@ export const pages = [
   home,
   serviceIndex,
   ...servicePages,
-  projects,
-  ...caseStudyPages,
   reviews,
   about,
   process,

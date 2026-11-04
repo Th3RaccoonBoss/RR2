@@ -23,6 +23,21 @@
       "statusCode": 301
     },
     {
+      "source": "/projects/",
+      "destination": "/services/",
+      "statusCode": 302
+    },
+    {
+      "source": "/projects/tudor-exterior-transformation/",
+      "destination": "/services/gutters-exteriors/",
+      "statusCode": 302
+    },
+    {
+      "source": "/projects/commercial-flat-roof/",
+      "destination": "/services/",
+      "statusCode": 302
+    },
+    {
       "source": "/contact-us-3/",
       "destination": "/contact/",
       "statusCode": 301

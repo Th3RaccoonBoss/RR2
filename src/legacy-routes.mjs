@@ -2,6 +2,26 @@
 // production history. Keep this file platform-neutral: deployment adapters
 // should consume the redirect list, while retired routes must remain absent.
 export const legacyRedirects = [
+  // Temporary public hold while project imagery provenance is confirmed.
+  {
+    source: "/projects/",
+    destination: "/services/",
+    status: 302,
+    evidence: "Owner-directed project provenance hold, November 4, 2026"
+  },
+  {
+    source: "/projects/tudor-exterior-transformation/",
+    destination: "/services/gutters-exteriors/",
+    status: 302,
+    evidence: "Owner-directed project provenance hold, November 4, 2026"
+  },
+  {
+    source: "/projects/commercial-flat-roof/",
+    destination: "/services/",
+    status: 302,
+    evidence: "Owner-directed project provenance hold, November 4, 2026"
+  },
+
   {
     source: "/contact-us-3/",
     destination: "/contact/",
