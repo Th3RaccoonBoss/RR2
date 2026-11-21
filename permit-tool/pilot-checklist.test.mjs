@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {preparePilotChecklist} from './pilot-checklist.mjs';
+const id='11111111-1111-4111-8111-111111111111',now=Date.now();const message={id:'abc',connectorRead:true,linkId:'link_00000000000000000000000000000000',from:'do-not-reply@mail.acculynx.com',subject:'[AccuLynx] New Task: PERMIT REQUEST - ROOFING',extractedHrefs:[`https://my.acculynx.com/?module=Jobs_Edit&JobID=${id}`]};
+const job={id,jobNumber:'SYNTHETIC',source:'authenticated_acl_get',fetchedAt:new Date(now).toISOString()};
+test('missing historical documents do not stop checklist',()=>{const r=preparePilotChecklist(message,job,{cityHint:'Tinley Park',now});assert.equal(r.state,'checklist_ready_for_review');assert.equal(r.jobVerified,true);assert.equal(r.documentRequirementsVerified,false);assert.deepEqual(r.applicationDocumentGaps,[]);assert.deepEqual(r.allowedExternalActions,[]);});
+test('postal municipality never attested',()=>{const r=preparePilotChecklist(message,job,{cityHint:'Barrington',now});assert.equal(r.jurisdictionVerified,false);assert.match(r.research.note,/not proof/);});
+test('unknown city produces useful checklist',()=>{const r=preparePilotChecklist(message,job,{cityHint:'Unknown',now});assert.equal(r.research,null);assert.equal(r.checklist.length,6);});
+test('stale job only flags job review',()=>{const r=preparePilotChecklist(message,{...job,fetchedAt:'2020-01-01'},{now});assert.equal(r.state,'checklist_ready_for_review');assert.equal(r.jobVerified,false);});
+test('invalid message rejected',()=>assert.equal(preparePilotChecklist(null,job).state,'reject'));

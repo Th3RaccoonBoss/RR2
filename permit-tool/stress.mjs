@@ -1,0 +1,19 @@
+// Recovered independent stress-test logic, relative imports adapted to recovered folder.
+import assert from 'node:assert/strict';
+import {assessPermit} from './readiness.mjs';
+import {queueCandidate} from './email-intake.mjs';
+const now=Date.parse('2026-11-12T16:00:00Z');const id='4abc4444-4444-4444-8444-444444444444';
+function f(){return {unresolvedConflict:false,candidate:{state:'awaiting_owner_review',key:'mail:1',jobId:id,jobNumber:'TEST-002'},review:{source:'owner_confirmation',candidateKey:'mail:1',jobId:id,scopeKey:'replace-existing',trade:'roof',jurisdictionId:'test-city',ancillaryReviewed:true,taskStillOpen:true,assignedToOwner:true,requestorAuthorized:true,confirmedAt:'2026-11-12T15:00:00Z'},job:{source:'authenticated_acl_get',id,jobNumber:'TEST-002',fetchedAt:'2026-11-12T15:00:00Z',jurisdictionId:'test-city',jurisdictionVerified:true},request:{trade:'roof',scopeKey:'replace-existing'},rules:[{jurisdictionId:'test-city',trade:'roof',scopeKey:'replace-existing',sourceKind:'official',verified:true,sourceUrl:'https://example.test/permit-rules',checkedAt:'2026-11-12T12:00:00Z',effectiveFrom:'2026-01-01',permitRequired:true,coiRequired:false,bondRequired:false,requiredDocuments:['scope']}],documents:[{jobId:id,kind:'scope',verified:true,source:'reviewed_document',version:'v1',scopeKey:'replace-existing',trade:'roof'}]};}
+const results=[];function check(name,fn){try{fn();results.push({name,pass:true});}catch(e){results.push({name,pass:false,error:e.message});}}
+check('baseline',()=>assert.equal(assessPermit(f(),now).state,'packet_ready_for_owner_review'));
+for(const url of ['https://','https://user:password@example.test','https:// example.test','http://example.test']) check('reject evidence URL '+url,()=>{const x=f();x.rules[0].sourceUrl=url;assert.equal(assessPermit(x,now).state,'blocked');});
+for(const field of ['checkedAt','effectiveFrom'])check('future '+field,()=>{const x=f();x.rules[0][field]='2027-01-01';assert.equal(assessPermit(x,now).state,'blocked');});
+check('changed jurisdiction requires renewed review',()=>{const x=f();x.job.jurisdictionId='other';x.rules[0].jurisdictionId='other';assert.equal(assessPermit(x,now).state,'blocked');});
+check('cancelled task cannot be COI request eligible',()=>{const x=f();x.review.taskStillOpen=false;x.rules[0].coiRequired=true;assert.equal(assessPermit(x,now).coiRequestEligible,false);});
+check('conflicting official rules',()=>{const x=f();x.rules.push({...x.rules[0],permitRequired:false});assert.equal(assessPermit(x,now).state,'blocked');});
+check('owner disagreement not silently dismissed',()=>{const x=f();x.rules.push({...x.rules[0],sourceKind:'owner_note',permitRequired:false});assert.equal(assessPermit(x,now).state,'blocked');});
+for(const key of ['scopeKey','trade','jurisdictionId'])check('wrong COI '+key,()=>{const x=f();x.rules[0].coiRequired=true;x.documents.push({...x.documents[0],kind:'coi',jurisdictionId:'test-city',[key]:'wrong'});assert.ok(assessPermit(x,now).blockers.includes('document_required:coi'));});
+check('expired COI',()=>{const x=f();x.rules[0].coiRequired=true;x.documents.push({...x.documents[0],kind:'coi',jurisdictionId:'test-city',expiresAt:'2026-11-01'});assert.ok(assessPermit(x,now).blockers.includes('document_required:coi'));});
+for(const bad of [null,[],true,42,'input'])check('malformed envelope '+JSON.stringify(bad),()=>assert.equal(assessPermit(bad,now).state,'blocked'));
+check('array mailbox identity rejected',()=>assert.equal(queueCandidate({connectorRead:true,linkId:'link_00000000000000000000000000000000',id:['abc'],subject:['[AccuLynx] New Task: PERMIT REQUEST'],from:'do-not-reply@mail.acculynx.com',extractedHrefs:[]},null).state,'reject'));
+console.log(JSON.stringify(results,null,2));console.log(`${results.filter(x=>x.pass).length}/${results.length} passed`);if(results.some(x=>!x.pass))process.exitCode=1;

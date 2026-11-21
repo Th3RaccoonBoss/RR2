@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {queueCandidate} from './email-intake.mjs';
+import {makeQueueInsert} from './connector-queue-sql.mjs';
+const m={id:'1111111111111111',linkId:'link_00000000000000000000000000000000',connectorRead:true,subject:'[AccuLynx] New Task: PERMIT REQUEST - ROOFING',from:'do-not-reply@mail.acculynx.com',transportVerified:false,extractedHrefs:['https://my.acculynx.com/?module=Jobs_Edit&JobID=11111111-1111-1111-1111-111111111111#/Jobs_Edit']};
+const c=queueCandidate(m,null),a=makeQueueInsert(c,{synthetic:true});
+assert.equal(c.state,'awaiting_owner_review');assert.equal(a.role_name,'permit_pilot_worker');assert.match(a.sql,/ON CONFLICT\(key\) DO NOTHING/);assert.match(a.sql,/'manual_review'/);
+for(const change of [{messageId:"';DROP TABLE x;--"},{jobId:'not-uuid'},{allowedActions:['submit']},{tradeHint:'pay'},{state:'approved'}])assert.throws(()=>makeQueueInsert({...c,...change}));
+assert.equal(queueCandidate({...m,linkId:'wrong'},null).state,'reject');
+assert.equal(queueCandidate({...m,subject:'[AccuLynx] New Task: unrelated'},null).state,'ignore');
+assert.equal(queueCandidate(m,null,new Set([c.key])).state,'duplicate');
+console.log('12 connector-only intake/SQL checks passed');
+if(process.argv.includes('--sql'))console.log(JSON.stringify(a));

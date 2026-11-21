@@ -1,0 +1,20 @@
+// Newly written recovery verification, not recovered original tests.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {queueCandidate} from './email-intake.mjs';
+import {processEnvelope} from './process.mjs';
+const id='11111111-1111-4111-8111-111111111111';
+const m={id:'abc123',subject:'[AccuLynx] New Task: PERMIT REQUEST - ROOFING',from:'do-not-reply@mail.acculynx.com',connectorRead:true,linkId:'link_00000000000000000000000000000000',extractedHrefs:[`https://my.acculynx.com/?module=Jobs_Edit&JobID=${id}`]};
+const job={id,jobNumber:'SYNTHETIC',source:'authenticated_acl_get'};
+test('valid email queues only for review',()=>{const c=queueCandidate(m,job);assert.equal(c.state,'awaiting_owner_review');assert.equal(c.jobId,id);assert.deepEqual(c.allowedActions,[]);});
+test('untrusted mailbox rejected',()=>assert.equal(queueCandidate({...m,connectorRead:false},job).state,'reject'));
+test('wrong mailbox rejected',()=>assert.equal(queueCandidate({...m,linkId:'other'},job).state,'reject'));
+test('wrong sender ignored',()=>assert.equal(queueCandidate({...m,from:'other'},job).state,'ignore'));
+test('unrelated task ignored',()=>assert.equal(queueCandidate({...m,subject:'Inspection'},job).state,'ignore'));
+test('duplicate not requeued',()=>assert.equal(queueCandidate(m,job,new Set([m.linkId+':'+m.id])).state,'duplicate'));
+test('invalid dedup rejected',()=>assert.equal(queueCandidate(m,job,{}).reason,'invalid_dedup_state'));
+test('ambiguous job remains unmatched',()=>assert.equal(queueCandidate({...m,extractedHrefs:[...m.extractedHrefs,'https://my.acculynx.com/?module=Jobs_Edit&JobID=22222222-2222-4222-8222-222222222222']},job).jobId,null));
+test('host spoof rejected',()=>assert.equal(queueCandidate({...m,extractedHrefs:[`https://my.acculynx.com.evil.test/?module=Jobs_Edit&JobID=${id}`]},job).jobId,null));
+test('credentialed link rejected',()=>assert.equal(queueCandidate({...m,extractedHrefs:[`https://user@my.acculynx.com/?module=Jobs_Edit&JobID=${id}`]},job).jobId,null));
+test('partial envelope remains blocked',()=>{const r=processEnvelope({message:m,job});assert.equal(r.state,'blocked');assert.deepEqual(r.allowedExternalActions,[]);});
+test('null envelope rejected',()=>assert.equal(processEnvelope(null).state,'reject'));

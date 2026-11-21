@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+test('jurisdiction research remains inactive and unranked',()=>{const p=new URL('./research/jurisdictions/STATUS.json',import.meta.url);const s=JSON.parse(fs.readFileSync(p));assert.equal(s.status,'inactive_research_only');assert.equal(s.rankedByJobFrequency,false);assert.deepEqual(s.runtimeRules,[]);for(const f of ['readiness.mjs','process.mjs','worker.py'])assert.ok(!fs.readFileSync(new URL(f,import.meta.url),'utf8').includes('research/jurisdictions'));});
