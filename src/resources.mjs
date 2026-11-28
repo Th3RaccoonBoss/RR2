@@ -1,7 +1,9 @@
 import { hailArticle } from "./hail-article.mjs";
+import { ventilationArticle } from "./ventilation-article.mjs";
 
 export const resourceArticles = [
   hailArticle,
+  ventilationArticle,
   {
     slug: "roof-replacement-process-what-to-expect",
     eyebrow: "Roofing guide",
@@ -293,7 +295,7 @@ export const resourceArticles = [
       "Ice at the eave is often a symptom of heat and moisture movement—not simply a gutter problem.",
     readTime: "5 min read",
     datePublished: "2026-07-30",
-    dateModified: "2026-07-30",
+    dateModified: "2026-11-27",
     sourceReviewed: "2026-07-30",
     sections: [
       {
@@ -326,6 +328,10 @@ export const resourceArticles = [
           {
             href: "https://bsesc.energy.gov/energy-basics/eaves-sealed-cold-climates",
             label: "U.S. Department of Energy: Cold-Climate Eaves"
+          },
+          {
+            href: "/resources/attic-ventilation-roof-replacement/",
+            label: "What a roofer checks about attic ventilation before replacement"
           }
         ]
       }

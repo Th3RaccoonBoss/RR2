@@ -888,6 +888,11 @@ const resourcePages = resourceArticles.map((article) => {
                     <section id="${resourceSectionId(section.heading)}">
                       <h2>${section.heading}</h2>
                       ${section.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}
+                      ${section.figure ? `
+                        <figure class="resource-article-figure">
+                          <img src="${section.figure.src}" alt="${section.figure.alt}" width="${section.figure.width}" height="${section.figure.height}" loading="lazy" decoding="async">
+                          <figcaption>${section.figure.caption}</figcaption>
+                        </figure>` : ""}
                       ${
                         section.bullets
                           ? `<ul>${section.bullets.map((item) => `<li>${item}</li>`).join("")}</ul>`

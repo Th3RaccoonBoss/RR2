@@ -6425,3 +6425,8 @@ html:not(.js) .inspection-form [data-disabled-until-enhanced] {
   }
 }
 /* === end Wave 2 === */
+
+/* Educational diagrams in roofing resource articles. */
+.resource-article-figure { margin: 1.5rem 0; }
+.resource-article-figure img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.resource-article-figure figcaption { margin-top: .65rem; font-size: .9rem; }

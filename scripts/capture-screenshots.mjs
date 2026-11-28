@@ -563,6 +563,18 @@ const targets = [
     height: 1000
   },
   {
+    name: "resource-attic-ventilation-1440.png",
+    path: "/resources/attic-ventilation-roof-replacement/",
+    width: 1440,
+    height: 1000
+  },
+  {
+    name: "resource-attic-ventilation-mobile-390.png",
+    path: "/resources/attic-ventilation-roof-replacement/",
+    width: 390,
+    height: 844
+  },
+  {
     name: "resource-ice-dam-guide-1440.png",
     path: "/resources/ice-dams-attic-ventilation-chicago/",
     width: 1440,
@@ -725,6 +737,7 @@ const requiredCapturePaths = [
   "/resources/roof-replacement-process-what-to-expect/",
   "/resources/storm-damage-roof-assessment-illinois/",
   "/resources/ice-dams-attic-ventilation-chicago/",
+  "/resources/attic-ventilation-roof-replacement/",
   "/faq/",
   "/warranty/",
   "/financing/",

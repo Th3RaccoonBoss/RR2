@@ -343,6 +343,7 @@ const structuredData = ({
       "roof-repair-vs-replacement-chicago": "Repair or Replacement",
       "storm-damage-roof-assessment-illinois": "Storm-Damage Assessment",
       "ice-dams-attic-ventilation-chicago": "Ice Dams & Ventilation",
+      "attic-ventilation-roof-replacement": "Attic Ventilation Before Roof Replacement",
       "roof-replacement-process-what-to-expect":
         "Roof Replacement Process",
       faq: "FAQ",
